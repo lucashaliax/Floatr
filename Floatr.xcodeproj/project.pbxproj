@@ -1,0 +1,729 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		09B583F8E05E74391E5C330E = {
+			isa = PBXBuildFile;
+			fileRef = 4E9F21CEECC8D9F5AE7AD283;
+		};
+		0EC0B17267BC6B2ECF68302A = {
+			isa = PBXBuildFile;
+			fileRef = 2139CF79C4F049F7D49F9DC2;
+		};
+		2D4FB3057E52C73B2570246B = {
+			isa = PBXBuildFile;
+			fileRef = 23700F01EFBE69090CC6BD13;
+		};
+		302B01DD0E3EC098E8E11362 = {
+			isa = PBXBuildFile;
+			fileRef = 1463872165632C3AC65376B7;
+		};
+		3AE01D83C8018D08E4752265 = {
+			isa = PBXBuildFile;
+			fileRef = 70F08255DAD20487CD6265E9;
+		};
+		588C3A42582FE34B49612E9D = {
+			isa = PBXBuildFile;
+			fileRef = 8DE7A5115566D20DA2E2756C;
+		};
+		5C994E9AA2446863252A764D = {
+			isa = PBXBuildFile;
+			fileRef = 8DE7A5115566D20DA2E2756C;
+		};
+		5D311AF8DC24BA1979B77BB8 = {
+			isa = PBXBuildFile;
+			fileRef = 2139CF79C4F049F7D49F9DC2;
+		};
+		64921B4315F4E923B6A282C7 = {
+			isa = PBXBuildFile;
+			fileRef = 22FD4ABA0C3B95489993105D;
+		};
+		8E52707917A14FE5A6C0CA16 = {
+			isa = PBXBuildFile;
+			fileRef = D49F52D915CE64E291383AB1;
+		};
+		93A68748AF98A2FD253D7337 = {
+			isa = PBXBuildFile;
+			fileRef = E45AE9D92318982FBBCF9B91;
+		};
+		96EAC48857D11F377E8D73A0 = {
+			isa = PBXBuildFile;
+			fileRef = 688F7D62230C481D52DC87AD;
+		};
+		98FA2766150D3CE208176145 = {
+			isa = PBXBuildFile;
+			fileRef = 23700F01EFBE69090CC6BD13;
+		};
+		9B4F114DB6C9D4A367A25FF1 = {
+			isa = PBXBuildFile;
+			fileRef = C846A9D32869F590D9009ABE;
+			settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); };
+		};
+		ABC6A231399B4E5DFF45222E = {
+			isa = PBXBuildFile;
+			fileRef = C0FC3E1E99CCBBC4FCE8A084;
+		};
+		B6B60BCF2B9D780D18F04134 = {
+			isa = PBXBuildFile;
+			fileRef = 5D0CEC9B72A335F5E5C2C51A;
+		};
+		BAAF63FDD169F08D38B98408 = {
+			isa = PBXBuildFile;
+			fileRef = 712BCD3B0FA8B37ABBD89810;
+		};
+		BCF103179DF202370EED49F9 = {
+			isa = PBXBuildFile;
+			fileRef = 9C8AC0285990CD7CC15875A6;
+		};
+		C0ED23AB050666E0086B0002 = {
+			isa = PBXBuildFile;
+			fileRef = 1845AAD62996A781F41F8614;
+		};
+		C1EDBC0DEA0A2E77FC195536 = {
+			isa = PBXBuildFile;
+			fileRef = 1E857D45B4965EB6DBF7D833;
+		};
+		CCFE768A2197876B5BD7947C = {
+			isa = PBXBuildFile;
+			fileRef = 6302DED49EBB5393F7681F8D;
+		};
+		D098C1966FE5D925139B31F9 = {
+			isa = PBXBuildFile;
+			fileRef = 47C6A8AB23C642C92C5B1C2D;
+		};
+		D4D53F7719B1A4FC05866C25 = {
+			isa = PBXBuildFile;
+			fileRef = A36331E20063D4ACDCA0A477;
+		};
+		E2806AC65CBA13C7C42F39EF = {
+			isa = PBXBuildFile;
+			fileRef = 8AA4E612C22285339CA26E4E;
+		};
+		E38DBB2AFA517EF1E4BEDCAD = {
+			isa = PBXBuildFile;
+			fileRef = 4C53CCC1A839059E24D7269D;
+		};
+		E99BCFA7F3F96035B152F3AA = {
+			isa = PBXBuildFile;
+			fileRef = FE0F3CEA9F5E807A07046BD6;
+		};
+		EED8A4D46186771FB9B3DD3A = {
+			isa = PBXBuildFile;
+			fileRef = D894FCA6EE41DF5898E8D165;
+		};
+		FBD977FB712A5200EE66D625 = {
+			isa = PBXBuildFile;
+			fileRef = 900BAEB219E388D8E9FC483E;
+		};
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6DE1494D6B9BC63E3D72F64D = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595;
+			proxyType = 1;
+			remoteGlobalIDString = 5DC61D677659CB93EE502EBC;
+			remoteInfo = "Floatr Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3769550BEC446D779F5C3557 = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9B4F114DB6C9D4A367A25FF1,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1463872165632C3AC65376B7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = OtherPanes.swift;
+			sourceTree = "<group>";
+		};
+		1845AAD62996A781F41F8614 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.javascript;
+			path = content.js;
+			sourceTree = "<group>";
+		};
+		1E857D45B4965EB6DBF7D833 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = HotkeyCenter.swift;
+			sourceTree = "<group>";
+		};
+		2139CF79C4F049F7D49F9DC2 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = Messages.swift;
+			sourceTree = "<group>";
+		};
+		22FD4ABA0C3B95489993105D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = HUD.swift;
+			sourceTree = "<group>";
+		};
+		23700F01EFBE69090CC6BD13 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = Settings.swift;
+			sourceTree = "<group>";
+		};
+		24CE9876F8E68E044D23CDA5 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.entitlements;
+			path = Floatr.entitlements;
+			sourceTree = "<group>";
+		};
+		47C6A8AB23C642C92C5B1C2D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = ShortcutsPane.swift;
+			sourceTree = "<group>";
+		};
+		4C53CCC1A839059E24D7269D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = MenuBarController.swift;
+			sourceTree = "<group>";
+		};
+		4E9F21CEECC8D9F5AE7AD283 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = GeneralPane.swift;
+			sourceTree = "<group>";
+		};
+		5D0CEC9B72A335F5E5C2C51A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = KeyNames.swift;
+			sourceTree = "<group>";
+		};
+		6302DED49EBB5393F7681F8D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = SafariBridge.swift;
+			sourceTree = "<group>";
+		};
+		688F7D62230C481D52DC87AD = {
+			isa = PBXFileReference;
+			lastKnownFileType = folder.assetcatalog;
+			path = Assets.xcassets;
+			sourceTree = "<group>";
+		};
+		70F08255DAD20487CD6265E9 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = OnboardingView.swift;
+			sourceTree = "<group>";
+		};
+		712BCD3B0FA8B37ABBD89810 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = ShortcutRecorder.swift;
+			sourceTree = "<group>";
+		};
+		8AA4E612C22285339CA26E4E = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.json.xcstrings;
+			path = Localizable.xcstrings;
+			sourceTree = "<group>";
+		};
+		8DE7A5115566D20DA2E2756C = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = Shortcut.swift;
+			sourceTree = "<group>";
+		};
+		900BAEB219E388D8E9FC483E = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.json.xcstrings;
+			path = Localizable.xcstrings;
+			sourceTree = "<group>";
+		};
+		9C8AC0285990CD7CC15875A6 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = AppDelegate.swift;
+			sourceTree = "<group>";
+		};
+		A36331E20063D4ACDCA0A477 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = AccessibilityPresser.swift;
+			sourceTree = "<group>";
+		};
+		BF3EBA1FD7301F03B5240D69 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			path = Info.plist;
+			sourceTree = "<group>";
+		};
+		C0FC3E1E99CCBBC4FCE8A084 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = PageRegistry.swift;
+			sourceTree = "<group>";
+		};
+		C846A9D32869F590D9009ABE = {
+			isa = PBXFileReference;
+			explicitFileType = "wrapper.app-extension";
+			includeInIndex = 0;
+			path = "Floatr Extension.appex";
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D2F629D0B0978EC19300BFB9 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			path = Info.plist;
+			sourceTree = "<group>";
+		};
+		D49F52D915CE64E291383AB1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.pdf;
+			path = ToolbarIcon.pdf;
+			sourceTree = "<group>";
+		};
+		D894FCA6EE41DF5898E8D165 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = AppModel.swift;
+			sourceTree = "<group>";
+		};
+		E45AE9D92318982FBBCF9B91 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = SafariExtensionHandler.swift;
+			sourceTree = "<group>";
+		};
+		F91288DB192297DC903FE08C = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			path = Floatr.app;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FE0F3CEA9F5E807A07046BD6 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = SettingsView.swift;
+			sourceTree = "<group>";
+		};
+		FF76854A6AF725EB1669075E = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.entitlements;
+			path = Extension.entitlements;
+			sourceTree = "<group>";
+		};
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AF0489BCA64AC3C0D96CBFB5 = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C478C5AC9A0A73E7EB2E80 = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		23CC6FCE8FFD884FC09CEDE5 = {
+			isa = PBXGroup;
+			children = (
+				688F7D62230C481D52DC87AD,
+				900BAEB219E388D8E9FC483E,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2AC8BA37DAC32D5437812408 = {
+			isa = PBXGroup;
+			children = (
+				F91288DB192297DC903FE08C,
+				C846A9D32869F590D9009ABE,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		370AE496244EA5C0AB592C03 = {
+			isa = PBXGroup;
+			children = (
+				4E9F21CEECC8D9F5AE7AD283,
+				1463872165632C3AC65376B7,
+				FE0F3CEA9F5E807A07046BD6,
+				712BCD3B0FA8B37ABBD89810,
+				47C6A8AB23C642C92C5B1C2D,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		397F9539752778927379D98C = {
+			isa = PBXGroup;
+			children = (
+				2139CF79C4F049F7D49F9DC2,
+				23700F01EFBE69090CC6BD13,
+				8DE7A5115566D20DA2E2756C,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		4215252139D8C4B4D57EE492 = {
+			isa = PBXGroup;
+			children = (
+				70F08255DAD20487CD6265E9,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		4D33082CC8F76578D7D58BF7 = {
+			isa = PBXGroup;
+			children = (
+				7DB4D1A376F4D941975A8811,
+				FF76854A6AF725EB1669075E,
+				D2F629D0B0978EC19300BFB9,
+				C0FC3E1E99CCBBC4FCE8A084,
+				E45AE9D92318982FBBCF9B91,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		4EAE695AD1F489F78EA3E1C6 = {
+			isa = PBXGroup;
+			children = (
+				397F9539752778927379D98C,
+				B97E7AAAA38C6CA046B0991D,
+				4D33082CC8F76578D7D58BF7,
+				2AC8BA37DAC32D5437812408,
+			);
+			sourceTree = "<group>";
+		};
+		7DB4D1A376F4D941975A8811 = {
+			isa = PBXGroup;
+			children = (
+				8AA4E612C22285339CA26E4E,
+				D49F52D915CE64E291383AB1,
+				1845AAD62996A781F41F8614,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B97E7AAAA38C6CA046B0991D = {
+			isa = PBXGroup;
+			children = (
+				4215252139D8C4B4D57EE492,
+				23CC6FCE8FFD884FC09CEDE5,
+				370AE496244EA5C0AB592C03,
+				A36331E20063D4ACDCA0A477,
+				9C8AC0285990CD7CC15875A6,
+				D894FCA6EE41DF5898E8D165,
+				24CE9876F8E68E044D23CDA5,
+				22FD4ABA0C3B95489993105D,
+				1E857D45B4965EB6DBF7D833,
+				BF3EBA1FD7301F03B5240D69,
+				5D0CEC9B72A335F5E5C2C51A,
+				4C53CCC1A839059E24D7269D,
+				6302DED49EBB5393F7681F8D,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5DC61D677659CB93EE502EBC = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F196B339A726FAF5BDE22DD5;
+			buildPhases = (
+				7BA6A8D0A514A0930D83C2C7,
+				F4C478C5AC9A0A73E7EB2E80,
+				E5DD0CFCA800BD45506E3268,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Floatr Extension";
+			productName = "Floatr Extension";
+			productReference = C846A9D32869F590D9009ABE;
+			productType = "com.apple.product-type.app-extension";
+		};
+		ACC9652797AB670E77D9DAEA = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1ED00BBC0099E0D70106FB20;
+			buildPhases = (
+				0CA2819EEA00C915C3047F83,
+				AF0489BCA64AC3C0D96CBFB5,
+				826FEF63C5D90282F7FB735C,
+				3769550BEC446D779F5C3557,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FAEDFC77E30439AB033F06E1,
+			);
+			name = Floatr;
+			productName = Floatr;
+			productReference = F91288DB192297DC903FE08C;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 = {
+			isa = PBXProject;
+			attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 1600; LastUpgradeCheck = 1600; };
+			buildConfigurationList = B61A476A5531CC175278BDCF;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"pt-BR",
+				Base,
+			);
+			mainGroup = 4EAE695AD1F489F78EA3E1C6;
+			productRefGroup = 2AC8BA37DAC32D5437812408;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ACC9652797AB670E77D9DAEA,
+				5DC61D677659CB93EE502EBC,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		826FEF63C5D90282F7FB735C = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96EAC48857D11F377E8D73A0,
+				FBD977FB712A5200EE66D625,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5DD0CFCA800BD45506E3268 = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0ED23AB050666E0086B0002,
+				8E52707917A14FE5A6C0CA16,
+				E2806AC65CBA13C7C42F39EF,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0CA2819EEA00C915C3047F83 = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D311AF8DC24BA1979B77BB8,
+				98FA2766150D3CE208176145,
+				5C994E9AA2446863252A764D,
+				D4D53F7719B1A4FC05866C25,
+				BCF103179DF202370EED49F9,
+				EED8A4D46186771FB9B3DD3A,
+				64921B4315F4E923B6A282C7,
+				C1EDBC0DEA0A2E77FC195536,
+				B6B60BCF2B9D780D18F04134,
+				E38DBB2AFA517EF1E4BEDCAD,
+				3AE01D83C8018D08E4752265,
+				CCFE768A2197876B5BD7947C,
+				09B583F8E05E74391E5C330E,
+				302B01DD0E3EC098E8E11362,
+				E99BCFA7F3F96035B152F3AA,
+				BAAF63FDD169F08D38B98408,
+				D098C1966FE5D925139B31F9,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BA6A8D0A514A0930D83C2C7 = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EC0B17267BC6B2ECF68302A,
+				2D4FB3057E52C73B2570246B,
+				588C3A42582FE34B49612E9D,
+				ABC6A231399B4E5DFF45222E,
+				93A68748AF98A2FD253D7337,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FAEDFC77E30439AB033F06E1 = {
+			isa = PBXTargetDependency;
+			target = 5DC61D677659CB93EE502EBC;
+			targetProxy = 6DE1494D6B9BC63E3D72F64D;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		08723DE70035A45CE7E33CC1 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = WLWCRYCLRT;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		31F573C1C1732BCE6B7B4EEB = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/Floatr.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = WLWCRYCLRT;
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = app.floatr.Floatr;
+				PRODUCT_NAME = Floatr;
+			};
+			name = Release;
+		};
+		61A8FE553262CD7EB776D383 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
+				DEVELOPMENT_TEAM = WLWCRYCLRT;
+				ENABLE_APP_SANDBOX = YES;
+				INFOPLIST_FILE = Extension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = app.floatr.Floatr.Extension;
+				PRODUCT_NAME = "Floatr Extension";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7C80754A03446383EF99BF62 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
+				DEVELOPMENT_TEAM = WLWCRYCLRT;
+				ENABLE_APP_SANDBOX = YES;
+				INFOPLIST_FILE = Extension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = app.floatr.Floatr.Extension;
+				PRODUCT_NAME = "Floatr Extension";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		80DB6ACE13380ADC3D86D6C5 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = WLWCRYCLRT;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		98E398162C206F89866DBAA5 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/Floatr.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = WLWCRYCLRT;
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = app.floatr.Floatr;
+				PRODUCT_NAME = Floatr;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1ED00BBC0099E0D70106FB20 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98E398162C206F89866DBAA5,
+				31F573C1C1732BCE6B7B4EEB,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B61A476A5531CC175278BDCF = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80DB6ACE13380ADC3D86D6C5,
+				08723DE70035A45CE7E33CC1,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F196B339A726FAF5BDE22DD5 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61A8FE553262CD7EB776D383,
+				7C80754A03446383EF99BF62,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595;
+}

@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Floatr test page</title>
+<style>body{font:14px -apple-system,sans-serif;margin:20px} video{background:#222;display:block;margin:8px 0} iframe{border:1px solid #ccc}</style>
+<h1>Floatr test page</h1>
+<p>Each video is a canvas stream. The content script is loaded with a stub instead of the Safari extension.</p>
+<video id="tiny" width="40" height="30" muted></video>
+<video id="big-paused" width="640" height="360" muted disablepictureinpicture></video>
+<video id="mid-playing" width="320" height="180" muted></video>
+<iframe id="frame" width="400" height="260"></iframe>
+<script src="stream.js"></script>
+<script>
+  wire('tiny', '#c33', false);
+  wire('big-paused', '#36c', false);
+  wire('mid-playing', '#3a3', true);
+  // Cross-origin iframe: same files served from 127.0.0.1 instead of localhost.
+  const other = location.hostname === 'localhost' ? '127.0.0.1' : 'localhost';
+  document.getElementById('frame').src = `${location.protocol}//${other}:${location.port}/frame.html`;
+</script>
+<script>
+  window.__events = [];
+  addEventListener('message', e => { if (e.data && e.data.test) window.__events.push(e.data); });
+</script>
+<script src="content.js"></script>

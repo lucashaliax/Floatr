@@ -1,0 +1,122 @@
+import AppKit
+import SwiftUI
+
+@main
+@MainActor
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    private var settingsWindow: NSWindow?
+    private let model = AppModel.shared
+
+    static func main() {
+        applyInterfaceLanguage()
+        let app = NSApplication.shared
+        let delegate = AppDelegate()
+        app.delegate = delegate
+        app.setActivationPolicy(.accessory) // invisible: no Dock icon
+        app.run()
+    }
+
+    /// English unless the user chose Portuguese. The bundle reads its language very early,
+    /// so when the stored preference is missing or different, save it and restart in place.
+    private static func applyInterfaceLanguage() {
+        let wanted = [SettingsStore.load().language.localeCode]
+        let key = "AppleLanguages" as CFString
+        let current = CFPreferencesCopyAppValue(key, kCFPreferencesCurrentApplication) as? [String]
+        guard current != wanted else { return }
+        CFPreferencesSetAppValue(key, wanted as CFArray, kCFPreferencesCurrentApplication)
+        CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication)
+        if let exe = Bundle.main.executablePath {
+            execv(exe, CommandLine.unsafeArgv) // only returns on failure; then continue in the current language
+        }
+    }
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        HotkeyCenter.shared.onHotkey = { [weak self] cmd in self?.model.perform(cmd) }
+        model.applyHotkeys()
+        observeDarwin(DarwinName.event)
+        observeDarwin(DarwinName.needsGesture)
+        observeFrontmostApp()
+        MenuBarController.shared.update()
+        model.refreshExtensionState()
+
+        // `open -a Floatr --args -FloatrPreviewHUD pipOff` shows one HUD (used to check its look).
+        if let raw = UserDefaults.standard.string(forKey: "FloatrPreviewHUD"), let event = HUDEvent(rawValue: raw) {
+            HUD.shared.show(event, detail: "1,5×")
+            return
+        }
+
+        // First run, or the extension still needs to be turned on: show the window.
+        // Launched at login with everything set up: stay invisible.
+        SafariBridge.extensionEnabled { [weak self] enabled in
+            guard let self else { return }
+            if !self.model.settings.onboardingDone || enabled == false { self.showSettings() }
+        }
+    }
+
+    /// Opening Floatr again (Spotlight, Launchpad, Finder) brings up the settings.
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        showSettings()
+        return true
+    }
+
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
+
+    func applicationDidBecomeActive(_ notification: Notification) {
+        model.refreshExtensionState()
+    }
+
+    // MARK: Settings window
+
+    func showSettings() {
+        if settingsWindow == nil {
+            let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 760, height: 540),
+                                  styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
+                                  backing: .buffered, defer: false)
+            window.title = "Floatr"
+            window.titlebarAppearsTransparent = true
+            window.toolbarStyle = .unified
+            window.isReleasedWhenClosed = false
+            window.contentMinSize = NSSize(width: 680, height: 460)
+            window.contentViewController = NSHostingController(rootView: SettingsView().environmentObject(model))
+            window.setFrameAutosaveName("FloatrSettings")
+            if !window.setFrameUsingName("FloatrSettings") { window.center() }
+            settingsWindow = window
+        }
+        NSApp.activate()
+        settingsWindow?.makeKeyAndOrderFront(nil)
+        model.refreshExtensionState()
+    }
+
+    // MARK: Notifications
+
+    private func observeDarwin(_ name: String) {
+        let observer = Unmanaged.passUnretained(self).toOpaque()
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), observer, { _, observer, name, _, _ in
+            guard let observer, let name = name?.rawValue as String? else { return }
+            let delegate = Unmanaged<AppDelegate>.fromOpaque(observer).takeUnretainedValue()
+            DispatchQueue.main.async {
+                MainActor.assumeIsolated { delegate.handleDarwin(name) }
+            }
+        }, name as CFString, nil, .deliverImmediately)
+    }
+
+    private func handleDarwin(_ name: String) {
+        switch name {
+        case DarwinName.event: model.handleExtensionEvent()
+        case DarwinName.needsGesture: model.handleNeedsGesture()
+        default: break
+        }
+    }
+
+    /// With "shortcuts only while Safari is in front", hotkeys are registered on the fly
+    /// so they never steal keys from other apps.
+    private func observeFrontmostApp() {
+        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didActivateApplicationNotification,
+                                                          object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated {
+                guard let self, !self.model.settings.hotkeysWhenSafariInBackground else { return }
+                if !HotkeyCenter.shared.isSuspended { self.model.applyHotkeys() }
+            }
+        }
+    }
+}

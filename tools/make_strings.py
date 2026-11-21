@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""Writes Localizable.xcstrings (source: English, translation: pt-BR) for the app and the extension.
+
+Source strings in the Swift code are English. Add the Portuguese translation of every new string here,
+then run:  python3 tools/make_strings.py"""
+import json, pathlib
+
+PT = {
+ "About": "Sobre",
+ "Accessibility allowed": "Acessibilidade permitida",
+ "Accessibility not allowed": "Acessibilidade não permitida",
+ "Add a PiP button inside video players": "Adicionar botão de PiP dentro dos players",
+ "Add the Floatr button to Safari's toolbar": "Adicione o botão Floatr à barra do Safari",
+ "Add ⌃, ⌥ or ⌘": "Use ⌃, ⌥ ou ⌘ junto",
+ "Allow Accessibility (recommended)": "Permita Acessibilidade (recomendado)",
+ "Allow Floatr in Accessibility": "Permita o Floatr em Acessibilidade",
+ "Allow PiP on sites that block it": "Liberar PiP em sites que bloqueiam",
+ "Allow…": "Permitir…",
+ "Always use the toolbar button": "Sempre usar o botão da barra",
+ "Another app already uses this shortcut": "Outro app já usa este atalho",
+ "Auto PiP": "Auto-PiP",
+ "Automation": "Automação",
+ "Buttons": "Botões",
+ "Click the toolbar button when Safari requires it": "Clicar no botão da barra quando o Safari exigir",
+ "Controls": "Controles",
+ "Default": "Padrão",
+ "Developed by": "Desenvolvido por",
+ "Done": "Concluir",
+ "Enter / exit PiP": "Entrar / sair do PiP",
+ "Enter PiP": "Entrar em PiP",
+ "Enter PiP when switching tabs": "Entrar em PiP ao trocar de aba",
+ "Exit PiP": "Sair do PiP",
+ "Exit Picture in Picture": "Sair do Picture in Picture",
+ "Extension is off": "Extensão desativada",
+ "Extension is on": "Extensão ativa",
+ "Extension is on in Safari": "Extensão ativa no Safari",
+ "Faster": "Mais rápido",
+ "Floating video controls": "Controle do vídeo flutuante",
+ "Floatr needs to relaunch to change the language.": "O Floatr precisa reabrir para mudar o idioma.",
+ "Floatr runs without a Dock icon. To come back to this window, open Floatr again from Spotlight or Launchpad.": "O Floatr roda sem ícone no Dock. Para voltar a esta janela, abra o Floatr de novo pelo Spotlight ou pelo Launchpad.",
+ "General": "Geral",
+ "Global shortcut → Floatr → extension → page": "Atalho global → Floatr → extensão → página",
+ "Go to the video's tab": "Voltar para a aba do vídeo",
+ "If a video is playing and you switch tabs, it keeps floating. When you come back to the tab, it returns to the page. You can turn this on or off per site in Sites.": "Se um vídeo estiver tocando e você mudar de aba, ele continua flutuando. Ao voltar para a aba, ele volta para a página. Dá para ligar ou desligar por site na seção Sites.",
+ "In PiP: %@": "Em PiP: %@",
+ "It's there by default. If you removed it, right-click the toolbar → Customize Toolbar.": "Ele já aparece por padrão. Se você o removeu, clique com o botão direito na barra → Personalizar Barra de Ferramentas.",
+ "Keep the Floatr button in Safari's toolbar": "Deixe o botão Floatr na barra do Safari",
+ "Language": "Idioma",
+ "Mute": "Silenciar",
+ "Muted": "Sem som",
+ "Next video on the page": "Próximo vídeo da página",
+ "No video in this tab": "Nenhum vídeo nesta aba",
+ "Off": "Desligado",
+ "On": "Ligado",
+ "Open Safari Settings": "Abrir ajustes do Safari",
+ "Open a video in Safari and press": "Abra um vídeo no Safari e pressione",
+ "Open at login": "Abrir ao iniciar sessão",
+ "Paused": "Pausado",
+ "PiP off": "PiP desativado",
+ "Picks the playing video, or the largest visible one": "Escolhe o vídeo que está tocando ou o maior visível",
+ "Picture in Picture for any video in Safari, with keyboard shortcuts.": "Picture in Picture para qualquer vídeo no Safari, com atalhos de teclado.",
+ "Play / pause": "Play / pausa",
+ "Player buttons": "Botões no player",
+ "Playing": "Reproduzindo",
+ "Press keys…": "Pressione as teclas…",
+ "Quit Floatr": "Sair do Floatr",
+ "Record shortcut": "Gravar atalho",
+ "Relaunch now": "Reabrir agora",
+ "Remove shortcut": "Remover atalho",
+ "Removes the disablePictureInPicture attribute some sites put on videos.": "Remove o atributo disablePictureInPicture que alguns sites colocam nos vídeos.",
+ "Restore defaults": "Restaurar padrões",
+ "Right-click the toolbar → Customize Toolbar": "Clique com o botão direito na barra → Personalizar Barra de Ferramentas",
+ "Rules also apply to subdomains.": "Regras valem também para os subdomínios.",
+ "Safari isn't open": "O Safari não está aberto",
+ "Safari toolbar button": "Botão na barra do Safari",
+ "Safari → Settings → Extensions → check Floatr and allow it on all websites.": "Safari → Ajustes → Extensões → marque Floatr e permita em todos os sites.",
+ "Same shortcut as another action": "Mesmo atalho de outra ação",
+ "Settings…": "Ajustes…",
+ "Shortcuts": "Atalhos",
+ "Shortcuts work while Safari is in the background": "Atalhos funcionam com o Safari em segundo plano",
+ "Show a floating button over any video": "Mostrar botão flutuante sobre qualquer vídeo",
+ "Show icon in the menu bar": "Mostrar ícone na barra de menus",
+ "Show introduction": "Mostrar introdução",
+ "Show on-screen confirmation (HUD)": "Mostrar confirmação na tela (HUD)",
+ "Site default": "Do site",
+ "Skip": "Pular",
+ "Skip back": "Voltar",
+ "Skip forward": "Avançar",
+ "Slower": "Mais devagar",
+ "Some sites only allow PiP after a click. In that case Floatr presses its own button in Safari's toolbar for you. This needs the Accessibility permission, and the button has to be visible in the toolbar.": "Alguns sites só aceitam PiP depois de um clique. Nesses casos o Floatr aperta o próprio botão na barra do Safari para você. Para isso ele precisa da permissão de Acessibilidade e o botão precisa estar visível na barra.",
+ "Some sites only allow PiP after a click. With this permission, Floatr clicks its own button for you.": "Alguns sites só aceitam PiP depois de um clique. Com esta permissão, o Floatr clica no próprio botão por você.",
+ "Sound on": "Com som",
+ "Space": "Espaço",
+ "Speed": "Velocidade",
+ "Speed step": "Passo de velocidade",
+ "The floating button appears in the corner of a video when the pointer is over it. Useful for players Floatr doesn't know.": "O botão flutuante aparece no canto do vídeo quando o cursor passa por cima. Útil em players que o Floatr não conhece.",
+ "They work in any app while the video is in PiP.": "Funcionam em qualquer app, enquanto o vídeo está em PiP.",
+ "This site blocked PiP": "Este site bloqueou o PiP",
+ "Three steps and the shortcut works.": "Três passos e o atalho já funciona.",
+ "Turn on Floatr in Safari Settings": "Ative o Floatr nos ajustes do Safari",
+ "Turn on the Floatr extension in Safari Settings": "Ative a extensão Floatr nos ajustes do Safari",
+ "Turn on the extension in Safari": "Ative a extensão no Safari",
+ "Version %@": "Versão %@",
+ "Welcome to Floatr": "Bem-vindo ao Floatr",
+ "When Safari requires a click": "Quando o Safari exige um clique",
+ "Works inside iframes and embedded players": "Funciona dentro de iframes e players incorporados",
+}
+
+# Strings that are the same in both languages need no entry; they fall back to English.
+EXTENSION_KEYS = {"Exit Picture in Picture"}
+
+def catalog(keys):
+    strings = {k: {"localizations": {"pt-BR": {"stringUnit": {"state": "translated", "value": PT[k]}}}}
+               for k in sorted(keys)}
+    return {"sourceLanguage": "en", "strings": strings, "version": "1.0"}
+
+root = pathlib.Path(__file__).resolve().parent.parent
+(root / "App/Resources/Localizable.xcstrings").write_text(
+    json.dumps(catalog(set(PT) - EXTENSION_KEYS), ensure_ascii=False, indent=2), encoding="utf-8")
+(root / "Extension/Resources/Localizable.xcstrings").write_text(
+    json.dumps(catalog(EXTENSION_KEYS), ensure_ascii=False, indent=2), encoding="utf-8")
+print(f"{len(PT)} strings")

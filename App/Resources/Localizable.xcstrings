@@ -1,0 +1,976 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "About": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobre"
+          }
+        }
+      }
+    },
+    "Accessibility allowed": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acessibilidade permitida"
+          }
+        }
+      }
+    },
+    "Accessibility not allowed": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acessibilidade não permitida"
+          }
+        }
+      }
+    },
+    "Add a PiP button inside video players": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar botão de PiP dentro dos players"
+          }
+        }
+      }
+    },
+    "Add the Floatr button to Safari's toolbar": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicione o botão Floatr à barra do Safari"
+          }
+        }
+      }
+    },
+    "Add ⌃, ⌥ or ⌘": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use ⌃, ⌥ ou ⌘ junto"
+          }
+        }
+      }
+    },
+    "Allow Accessibility (recommended)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permita Acessibilidade (recomendado)"
+          }
+        }
+      }
+    },
+    "Allow Floatr in Accessibility": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permita o Floatr em Acessibilidade"
+          }
+        }
+      }
+    },
+    "Allow PiP on sites that block it": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liberar PiP em sites que bloqueiam"
+          }
+        }
+      }
+    },
+    "Allow…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir…"
+          }
+        }
+      }
+    },
+    "Always use the toolbar button": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sempre usar o botão da barra"
+          }
+        }
+      }
+    },
+    "Another app already uses this shortcut": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outro app já usa este atalho"
+          }
+        }
+      }
+    },
+    "Auto PiP": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auto-PiP"
+          }
+        }
+      }
+    },
+    "Automation": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automação"
+          }
+        }
+      }
+    },
+    "Buttons": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Botões"
+          }
+        }
+      }
+    },
+    "Click the toolbar button when Safari requires it": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clicar no botão da barra quando o Safari exigir"
+          }
+        }
+      }
+    },
+    "Controls": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controles"
+          }
+        }
+      }
+    },
+    "Default": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Padrão"
+          }
+        }
+      }
+    },
+    "Developed by": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desenvolvido por"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Concluir"
+          }
+        }
+      }
+    },
+    "Enter / exit PiP": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrar / sair do PiP"
+          }
+        }
+      }
+    },
+    "Enter PiP": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrar em PiP"
+          }
+        }
+      }
+    },
+    "Enter PiP when switching tabs": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrar em PiP ao trocar de aba"
+          }
+        }
+      }
+    },
+    "Exit PiP": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sair do PiP"
+          }
+        }
+      }
+    },
+    "Extension is off": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extensão desativada"
+          }
+        }
+      }
+    },
+    "Extension is on": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extensão ativa"
+          }
+        }
+      }
+    },
+    "Extension is on in Safari": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extensão ativa no Safari"
+          }
+        }
+      }
+    },
+    "Faster": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais rápido"
+          }
+        }
+      }
+    },
+    "Floating video controls": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controle do vídeo flutuante"
+          }
+        }
+      }
+    },
+    "Floatr needs to relaunch to change the language.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Floatr precisa reabrir para mudar o idioma."
+          }
+        }
+      }
+    },
+    "Floatr runs without a Dock icon. To come back to this window, open Floatr again from Spotlight or Launchpad.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Floatr roda sem ícone no Dock. Para voltar a esta janela, abra o Floatr de novo pelo Spotlight ou pelo Launchpad."
+          }
+        }
+      }
+    },
+    "General": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geral"
+          }
+        }
+      }
+    },
+    "Global shortcut → Floatr → extension → page": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atalho global → Floatr → extensão → página"
+          }
+        }
+      }
+    },
+    "Go to the video's tab": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltar para a aba do vídeo"
+          }
+        }
+      }
+    },
+    "If a video is playing and you switch tabs, it keeps floating. When you come back to the tab, it returns to the page. You can turn this on or off per site in Sites.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se um vídeo estiver tocando e você mudar de aba, ele continua flutuando. Ao voltar para a aba, ele volta para a página. Dá para ligar ou desligar por site na seção Sites."
+          }
+        }
+      }
+    },
+    "In PiP: %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em PiP: %@"
+          }
+        }
+      }
+    },
+    "It's there by default. If you removed it, right-click the toolbar → Customize Toolbar.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ele já aparece por padrão. Se você o removeu, clique com o botão direito na barra → Personalizar Barra de Ferramentas."
+          }
+        }
+      }
+    },
+    "Keep the Floatr button in Safari's toolbar": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deixe o botão Floatr na barra do Safari"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma"
+          }
+        }
+      }
+    },
+    "Mute": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silenciar"
+          }
+        }
+      }
+    },
+    "Muted": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem som"
+          }
+        }
+      }
+    },
+    "Next video on the page": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próximo vídeo da página"
+          }
+        }
+      }
+    },
+    "No video in this tab": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum vídeo nesta aba"
+          }
+        }
+      }
+    },
+    "Off": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desligado"
+          }
+        }
+      }
+    },
+    "On": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligado"
+          }
+        }
+      }
+    },
+    "Open Safari Settings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir ajustes do Safari"
+          }
+        }
+      }
+    },
+    "Open a video in Safari and press": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra um vídeo no Safari e pressione"
+          }
+        }
+      }
+    },
+    "Open at login": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir ao iniciar sessão"
+          }
+        }
+      }
+    },
+    "Paused": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausado"
+          }
+        }
+      }
+    },
+    "PiP off": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PiP desativado"
+          }
+        }
+      }
+    },
+    "Picks the playing video, or the largest visible one": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolhe o vídeo que está tocando ou o maior visível"
+          }
+        }
+      }
+    },
+    "Picture in Picture for any video in Safari, with keyboard shortcuts.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Picture in Picture para qualquer vídeo no Safari, com atalhos de teclado."
+          }
+        }
+      }
+    },
+    "Play / pause": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Play / pausa"
+          }
+        }
+      }
+    },
+    "Player buttons": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Botões no player"
+          }
+        }
+      }
+    },
+    "Playing": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reproduzindo"
+          }
+        }
+      }
+    },
+    "Press keys…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pressione as teclas…"
+          }
+        }
+      }
+    },
+    "Quit Floatr": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sair do Floatr"
+          }
+        }
+      }
+    },
+    "Record shortcut": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravar atalho"
+          }
+        }
+      }
+    },
+    "Relaunch now": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reabrir agora"
+          }
+        }
+      }
+    },
+    "Remove shortcut": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remover atalho"
+          }
+        }
+      }
+    },
+    "Removes the disablePictureInPicture attribute some sites put on videos.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove o atributo disablePictureInPicture que alguns sites colocam nos vídeos."
+          }
+        }
+      }
+    },
+    "Restore defaults": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar padrões"
+          }
+        }
+      }
+    },
+    "Right-click the toolbar → Customize Toolbar": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clique com o botão direito na barra → Personalizar Barra de Ferramentas"
+          }
+        }
+      }
+    },
+    "Rules also apply to subdomains.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regras valem também para os subdomínios."
+          }
+        }
+      }
+    },
+    "Safari isn't open": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Safari não está aberto"
+          }
+        }
+      }
+    },
+    "Safari toolbar button": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Botão na barra do Safari"
+          }
+        }
+      }
+    },
+    "Safari → Settings → Extensions → check Floatr and allow it on all websites.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Safari → Ajustes → Extensões → marque Floatr e permita em todos os sites."
+          }
+        }
+      }
+    },
+    "Same shortcut as another action": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mesmo atalho de outra ação"
+          }
+        }
+      }
+    },
+    "Settings…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajustes…"
+          }
+        }
+      }
+    },
+    "Shortcuts": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atalhos"
+          }
+        }
+      }
+    },
+    "Shortcuts work while Safari is in the background": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atalhos funcionam com o Safari em segundo plano"
+          }
+        }
+      }
+    },
+    "Show a floating button over any video": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar botão flutuante sobre qualquer vídeo"
+          }
+        }
+      }
+    },
+    "Show icon in the menu bar": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar ícone na barra de menus"
+          }
+        }
+      }
+    },
+    "Show introduction": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar introdução"
+          }
+        }
+      }
+    },
+    "Show on-screen confirmation (HUD)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar confirmação na tela (HUD)"
+          }
+        }
+      }
+    },
+    "Site default": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do site"
+          }
+        }
+      }
+    },
+    "Skip": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pular"
+          }
+        }
+      }
+    },
+    "Skip back": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltar"
+          }
+        }
+      }
+    },
+    "Skip forward": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avançar"
+          }
+        }
+      }
+    },
+    "Slower": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais devagar"
+          }
+        }
+      }
+    },
+    "Some sites only allow PiP after a click. In that case Floatr presses its own button in Safari's toolbar for you. This needs the Accessibility permission, and the button has to be visible in the toolbar.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alguns sites só aceitam PiP depois de um clique. Nesses casos o Floatr aperta o próprio botão na barra do Safari para você. Para isso ele precisa da permissão de Acessibilidade e o botão precisa estar visível na barra."
+          }
+        }
+      }
+    },
+    "Some sites only allow PiP after a click. With this permission, Floatr clicks its own button for you.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alguns sites só aceitam PiP depois de um clique. Com esta permissão, o Floatr clica no próprio botão por você."
+          }
+        }
+      }
+    },
+    "Sound on": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com som"
+          }
+        }
+      }
+    },
+    "Space": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espaço"
+          }
+        }
+      }
+    },
+    "Speed": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Velocidade"
+          }
+        }
+      }
+    },
+    "Speed step": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo de velocidade"
+          }
+        }
+      }
+    },
+    "The floating button appears in the corner of a video when the pointer is over it. Useful for players Floatr doesn't know.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O botão flutuante aparece no canto do vídeo quando o cursor passa por cima. Útil em players que o Floatr não conhece."
+          }
+        }
+      }
+    },
+    "They work in any app while the video is in PiP.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funcionam em qualquer app, enquanto o vídeo está em PiP."
+          }
+        }
+      }
+    },
+    "This site blocked PiP": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este site bloqueou o PiP"
+          }
+        }
+      }
+    },
+    "Three steps and the shortcut works.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Três passos e o atalho já funciona."
+          }
+        }
+      }
+    },
+    "Turn on Floatr in Safari Settings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ative o Floatr nos ajustes do Safari"
+          }
+        }
+      }
+    },
+    "Turn on the Floatr extension in Safari Settings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ative a extensão Floatr nos ajustes do Safari"
+          }
+        }
+      }
+    },
+    "Turn on the extension in Safari": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ative a extensão no Safari"
+          }
+        }
+      }
+    },
+    "Version %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versão %@"
+          }
+        }
+      }
+    },
+    "Welcome to Floatr": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bem-vindo ao Floatr"
+          }
+        }
+      }
+    },
+    "When Safari requires a click": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando o Safari exige um clique"
+          }
+        }
+      }
+    },
+    "Works inside iframes and embedded players": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funciona dentro de iframes e players incorporados"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

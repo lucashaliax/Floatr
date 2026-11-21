@@ -1,0 +1,13 @@
+<!doctype html>
+<meta charset="utf-8">
+<body style="margin:0;background:#eee">
+<video id="embed" width="380" height="214" muted></video>
+<script src="stream.js"></script>
+<script>wire('embed', '#c90', new URLSearchParams(location.search).get('play') !== '0');</script>
+<script>
+  // Test observer: tell the parent page what happened to this frame's video.
+  const ev = document.getElementById('embed');
+  for (const t of ['volumechange', 'seeked', 'ratechange', 'pause', 'play'])
+    ev.addEventListener(t, () => parent.postMessage({ test: t, muted: ev.muted, rate: ev.playbackRate, time: Math.round(ev.currentTime) }, '*'));
+</script>
+<script src="content.js"></script>
