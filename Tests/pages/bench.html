@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><title>bench</title><body>
+<script>
+// Heavy page: 15k elements, some shadow roots, one video, DOM changing constantly.
+for (let i = 0; i < 15000; i++) { const d = document.createElement('div'); d.textContent = 'item ' + i; if (i % 50 === 0) d.attachShadow({mode:'open'}).innerHTML = '<span>x</span>'; document.body.appendChild(d); }
+const v = document.createElement('video'); v.width = 640; v.height = 360; v.style.cssText = 'position:fixed;top:0;left:0;background:#222'; const host = document.createElement('div'); document.body.appendChild(host); host.attachShadow({mode:'open'}).appendChild(v); // player built as a web component
+setInterval(() => { const d = document.createElement('div'); d.textContent = Date.now(); document.body.appendChild(d); document.body.firstElementChild.remove(); }, 50);
+</script>
+<script src="content.js"></script>

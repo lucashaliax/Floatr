@@ -461,23 +461,36 @@
       if (!hoverVideo) return;
       if (isInPiP(hoverVideo)) exitPiP(hoverVideo); else enterPiP(hoverVideo, { trusted: true });
     });
-    hoverBtn.addEventListener('mouseenter', () => clearTimeout(hoverHide));
+    hoverBtn.addEventListener('mouseenter', () => { clearTimeout(hoverHide); hoverHide = 0; });
     document.documentElement.appendChild(hoverHost);
   }
+  // The mousemove handler only records the pointer; the work runs at most once per frame
+  // and uses the video list from the last DOM scan instead of searching the page each time.
+  let hoverX = 0, hoverY = 0, hoverFrame = 0;
   function onMouseMove(ev) {
+    if (!settings.hoverButton) return;
+    hoverX = ev.clientX;
+    hoverY = ev.clientY;
+    if (!hoverFrame) hoverFrame = requestAnimationFrame(updateHover);
+  }
+  function updateHover() {
+    hoverFrame = 0;
     if (!settings.hoverButton || !buttonsEnabled()) return;
-    const v = allVideos().find(x => {
+    const v = knownVideos.find(x => {
+      if (!x.isConnected) return false;
       const r = x.getBoundingClientRect();
       return r.width >= 200 && r.height >= 112 &&
-        ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom;
+        hoverX >= r.left && hoverX <= r.right && hoverY >= r.top && hoverY <= r.bottom;
     });
     if (!v) {
-      clearTimeout(hoverHide);
-      hoverHide = setTimeout(() => hoverBtn && hoverBtn.classList.remove('on'), 400);
+      if (hoverBtn && hoverBtn.classList.contains('on') && !hoverHide) {
+        hoverHide = setTimeout(() => { hoverHide = 0; hoverBtn.classList.remove('on'); }, 400);
+      }
       return;
     }
     ensureHover();
     clearTimeout(hoverHide);
+    hoverHide = 0;
     hoverVideo = v;
     const r = v.getBoundingClientRect();
     hoverBtn.style.top = Math.max(8, r.top + 10) + 'px';
@@ -494,11 +507,13 @@
   // ---------------------------------------------------------------- DOM watching (throttled)
 
   let scheduled = false;
+  let knownVideos = []; // refreshed by each DOM scan; used by the hover button
   function scheduleScan() {
     if (scheduled) return;
     scheduled = true;
     setTimeout(() => {
       scheduled = false;
+      knownVideos = allVideos();
       reportVideoPresence();
       if (buttonsEnabled()) injectPlayerButtons();
       if (settings.unblockPiP) document.querySelectorAll('video[disablepictureinpicture]').forEach(unblock);

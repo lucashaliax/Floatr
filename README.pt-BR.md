@@ -74,14 +74,14 @@ Todos os atalhos podem ser trocados nos ajustes. Os controles funcionam em qualq
 
 ## Compilar
 
-Precisa do Xcode.
-
-1. Abra `Floatr.xcodeproj` e escolha seu **Team** em *Signing & Capabilities* nos dois alvos (Floatr e Floatr Extension).
-2. Compile o esquema **Floatr**.
+Precisa do Xcode. Abra o `Floatr.xcodeproj` uma vez e escolha seu **Team** em *Signing & Capabilities* nos dois alvos (Floatr e Floatr Extension). Depois:
 
 ```bash
-xcodebuild -project Floatr.xcodeproj -scheme Floatr -configuration Release -derivedDataPath build -allowProvisioningUpdates build
+tools/build.sh          # compila (Release), instala em /Applications, reabre e verifica o uso de recursos
+tools/build.sh --zip    # o mesmo, e gera build/release/Floatr.zip para um release no GitHub
 ```
+
+Todo build termina com `tools/check_resources.sh`, que mede o app e a extensão em repouso (memória, CPU, ativações por segundo e vazamentos) e falha se houver vazamento ou uso de CPU em repouso. `Tests/pages/bench.html` é uma página pesada (15 mil elementos mudando sem parar) para medir o script da página num navegador.
 
 O projeto é gerado por `tools/gen_project.py` (rode de novo ao adicionar ou remover arquivos Swift; ele mantém o Team). Ícones: `swift tools/make_icons.swift`. Traduções: `python3 tools/make_strings.py`. Imagens promocionais:
 
