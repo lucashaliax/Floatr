@@ -36,6 +36,7 @@ enum ScriptMessage: String {
     case pipState       // {active: Bool, title: String, host: String, time: Double, duration: Double, rate: Double}
     case result         // {event: String, title: String?} -> HUD
     case needsGesture   // PiP refused without a user gesture -> app presses the toolbar button
+    case ack            // {id} the top frame received a command (lets the extension detect dead pages)
 }
 
 /// Events shown in the HUD. Raw values are what content.js sends in `result.event`.
@@ -43,6 +44,8 @@ enum HUDEvent: String, Codable {
     case pipOn, pipOff, noVideo, blocked, playing, paused, rate, seek, muted, unmuted
     // raised by the app itself
     case safariClosed, extensionOff, toolbarMissing, needsAccessibility
+    // raised by the extension when the page never answered (no content script: reload needed)
+    case unreachable
 }
 
 /// Darwin notifications (no payload; payload goes through the shared defaults).

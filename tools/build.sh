@@ -25,6 +25,8 @@ echo "Built and verified $(defaults read "$BUILT/Contents/Info" CFBundleShortVer
 
 # Replace the installed copy and keep only /Applications registered (so Safari loads that one).
 pkill -x Floatr || true
+# Safari keeps the old extension process alive; quit it so the next command loads the new one.
+pkill -f "Floatr Extension.appex/Contents/MacOS/" || true
 sleep 1
 rm -rf /Applications/Floatr.app
 ditto "$BUILT" /Applications/Floatr.app

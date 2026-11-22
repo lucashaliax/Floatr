@@ -591,6 +591,16 @@
         }
       }
     },
+    "Reload the page to use Floatr": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recarregue a página para usar o Floatr"
+          }
+        }
+      }
+    },
     "Remove shortcut": {
       "localizations": {
         "pt-BR": {

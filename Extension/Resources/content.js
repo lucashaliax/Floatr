@@ -290,6 +290,8 @@
         return;
       }
       if (!isTop) return; // the top frame coordinates; iframes act on its postMessage
+      // Answer at once so the extension knows this page is alive (dead or script-less pages never answer).
+      if (info.id) send('ack', { id: info.id });
       route(ev.name, { trusted: !!info.viaToolbar });
     });
   }

@@ -91,6 +91,7 @@ final class HUD {
         case .extensionOff: ("puzzlepiece.extension", String(localized: "Turn on Floatr in Safari Settings"))
         case .toolbarMissing: ("hand.point.up.left", String(localized: "Add the Floatr button to Safari's toolbar"))
         case .needsAccessibility: ("lock.shield", String(localized: "Allow Floatr in Accessibility"))
+        case .unreachable: ("arrow.clockwise", String(localized: "Reload the page to use Floatr"))
         }
     }
 }

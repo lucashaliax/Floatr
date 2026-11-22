@@ -44,6 +44,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             HUD.shared.show(event, detail: "1,5×")
             return
         }
+        // `open -a Floatr --args -FloatrRunCommand toggle` runs one command, as if its shortcut
+        // was pressed (used to test Floatr without a keyboard).
+        if let raw = UserDefaults.standard.string(forKey: "FloatrRunCommand"), let cmd = PiPCommand(rawValue: raw) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { self.model.perform(cmd) }
+            return
+        }
 
         // First run, or the extension still needs to be turned on: show the window.
         // Launched at login with everything set up: stay invisible.

@@ -66,6 +66,7 @@ PT = {
  "Quit Floatr": "Sair do Floatr",
  "Record shortcut": "Gravar atalho",
  "Relaunch now": "Reabrir agora",
+ "Reload the page to use Floatr": "Recarregue a página para usar o Floatr",
  "Remove shortcut": "Remover atalho",
  "Removes the disablePictureInPicture attribute some sites put on videos.": "Remove o atributo disablePictureInPicture que alguns sites colocam nos vídeos.",
  "Restore defaults": "Restaurar padrões",

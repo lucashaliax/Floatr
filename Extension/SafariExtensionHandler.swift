@@ -7,6 +7,7 @@ private let log = Logger(subsystem: Floatr.extensionBundleID, category: "handler
 /// the toolbar button, the video context menu, and the Floatr app (global shortcuts).
 final class SafariExtensionHandler: SFSafariExtensionHandler {
     private let registry = PageRegistry.shared
+    private let tracker = CommandTracker.shared
 
     // MARK: Messages from content.js
 
@@ -14,15 +15,18 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
         let info = userInfo ?? [:]
         switch ScriptMessage(rawValue: messageName) {
         case .hello:
+            // A page that (re)loads isn't floating anything, whatever we remembered about it.
+            registry.clearPiP(ifStill: page)
             page.dispatchMessageToScript(withName: "settings", userInfo: SettingsStore.load().scriptPayload)
 
+        case .ack:
+            if let id = info["id"] as? String { tracker.ack(id) }
+
         case .videoCheck:
-            registry.setHasVideo(info["found"] as? Bool ?? false, for: page)
-            SFSafariApplication.setToolbarItemsNeedUpdate()
+            break // kept for older scripts; the toolbar button is always enabled now
 
         case .pipState:
             registry.setPiP(info["active"] as? Bool ?? false, page: page)
-            SFSafariApplication.setToolbarItemsNeedUpdate()
 
         case .result:
             guard let raw = info["event"] as? String, let event = HUDEvent(rawValue: raw) else { return }
@@ -49,20 +53,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
             focusPiPTab()
             return
         }
-
-        // Controls (and toggling off) go to the page that owns the floating video,
-        // even if the user moved to another tab. Otherwise use the front tab.
-        if let pip = registry.pipPage {
-            pip.dispatchMessageToScript(withName: command.rawValue, userInfo: [:])
-            return
-        }
-        withActivePage { page in
-            guard let page else {
-                SettingsStore.writeEvent(.init(event: .noVideo, detail: nil, date: Date()))
-                return
-            }
-            page.dispatchMessageToScript(withName: command.rawValue, userInfo: [:])
-        }
+        deliver(command.rawValue, userInfo: [:], window: nil)
     }
 
     private func focusPiPTab() {
@@ -73,7 +64,10 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
         page.getContainingTab { tab in
             tab.activate {
                 // Like the "return" button on the PiP window: bring the video back inline.
-                page.dispatchMessageToScript(withName: "exit", userInfo: [:])
+                self.tracker.send("exit", to: page) {
+                    self.registry.clearPiP(ifStill: page)
+                    SettingsStore.writeEvent(.init(event: .noVideo, detail: nil, date: Date()))
+                }
             }
         }
     }
@@ -81,34 +75,22 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
     // MARK: Toolbar button (same behaviour as PiPifier, plus toggling off)
 
     override func toolbarItemClicked(in window: SFSafariWindow) {
-        if let pip = registry.pipPage {
-            pip.dispatchMessageToScript(withName: PiPCommand.toggle.rawValue, userInfo: ["viaToolbar": true])
-            return
-        }
-        window.getActiveTab { tab in
-            tab?.getActivePage { page in
-                page?.dispatchMessageToScript(withName: PiPCommand.toggle.rawValue, userInfo: ["viaToolbar": true])
-            }
-        }
+        deliver(PiPCommand.toggle.rawValue, userInfo: ["viaToolbar": true], window: window)
     }
 
+    /// Always enabled. It used to be disabled on pages without a detected video, but that state
+    /// is lost whenever Safari restarts the extension, which left the button grayed out on pages
+    /// that do have videos. A click on a page without video shows "No video in this tab".
     override func validateToolbarItem(in window: SFSafariWindow, validationHandler: @escaping (Bool, String) -> Void) {
-        if registry.pipPage != nil {
-            validationHandler(true, "")
-            return
-        }
-        window.getActiveTab { tab in
-            guard let tab else { return validationHandler(false, "") }
-            tab.getActivePage { page in
-                validationHandler(page.map(self.registry.hasVideo) ?? false, "")
-            }
-        }
+        validationHandler(true, "")
     }
 
     // MARK: Context menu on videos
 
     override func contextMenuItemSelected(withCommand command: String, in page: SFSafariPage, userInfo: [String: Any]? = nil) {
-        page.dispatchMessageToScript(withName: PiPCommand.toggle.rawValue, userInfo: ["viaToolbar": true])
+        tracker.send(PiPCommand.toggle.rawValue, to: page, userInfo: ["viaToolbar": true]) {
+            SettingsStore.writeEvent(.init(event: .unreachable, detail: nil, date: Date()))
+        }
     }
 
     override func validateContextMenuItem(withCommand command: String, in page: SFSafariPage, userInfo: [String: Any]? = nil,
@@ -118,20 +100,45 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
         validationHandler(!hasVideo, registry.isPiP(page) ? exitTitle : nil)
     }
 
-    // MARK: Helpers
+    // MARK: Routing
 
-    /// The extension runs with Safari's language, so it follows the language chosen in Floatr instead.
-    private var exitTitle: String {
-        SettingsStore.load().language == .pt ? "Sair do Picture in Picture" : "Exit Picture in Picture"
+    /// Sends a command to the page that owns the floating video, or else to the front tab.
+    /// If the floating page doesn't answer, it's forgotten and the front tab gets the command.
+    /// If the front tab doesn't answer either, the HUD asks the user to reload it.
+    private func deliver(_ name: String, userInfo: [String: Any], window: SFSafariWindow?) {
+        let toActivePage = {
+            self.activePage(in: window) { page in
+                guard let page else {
+                    SettingsStore.writeEvent(.init(event: .noVideo, detail: nil, date: Date()))
+                    return
+                }
+                self.tracker.send(name, to: page, userInfo: userInfo) {
+                    log.error("page didn't answer \(name, privacy: .public); it has no Floatr script")
+                    SettingsStore.writeEvent(.init(event: .unreachable, detail: nil, date: Date()))
+                }
+            }
+        }
+        guard let pip = registry.pipPage else { return toActivePage() }
+        tracker.send(name, to: pip, userInfo: userInfo) {
+            log.info("floating page is gone; sending \(name, privacy: .public) to the front tab")
+            self.registry.clearPiP(ifStill: pip)
+            toActivePage()
+        }
     }
 
-    private func withActivePage(_ body: @escaping (SFSafariPage?) -> Void) {
-        SFSafariApplication.getActiveWindow { window in
+    private func activePage(in window: SFSafariWindow?, _ body: @escaping (SFSafariPage?) -> Void) {
+        let fromWindow: (SFSafariWindow?) -> Void = { window in
             guard let window else { return body(nil) }
             window.getActiveTab { tab in
                 guard let tab else { return body(nil) }
                 tab.getActivePage { body($0) }
             }
         }
+        if let window { fromWindow(window) } else { SFSafariApplication.getActiveWindow(completionHandler: fromWindow) }
+    }
+
+    /// The extension runs with Safari's language, so it follows the language chosen in Floatr instead.
+    private var exitTitle: String {
+        SettingsStore.load().language == .pt ? "Sair do Picture in Picture" : "Exit Picture in Picture"
     }
 }
