@@ -29,18 +29,17 @@ enum SettingsPane: String, CaseIterable, Identifiable {
 
 struct SettingsView: View {
     @EnvironmentObject private var model: AppModel
-    @State private var pane: SettingsPane? = .shortcuts
     @State private var showOnboarding = false
 
     var body: some View {
         NavigationSplitView {
-            List(SettingsPane.allCases, selection: $pane) { p in
+            List(SettingsPane.allCases, selection: $model.selectedPane) { p in
                 Label(p.title, systemImage: p.symbol).tag(p)
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 190, max: 220)
         } detail: {
             Group {
-                switch pane ?? .shortcuts {
+                switch model.selectedPane ?? .shortcuts {
                 case .general: GeneralPane(showOnboarding: $showOnboarding)
                 case .shortcuts: ShortcutsPane()
                 case .automation: AutomationPane()
@@ -49,7 +48,7 @@ struct SettingsView: View {
                 case .about: AboutPane()
                 }
             }
-            .navigationTitle(pane?.title ?? "Floatr")
+            .navigationTitle(model.selectedPane?.title ?? "Floatr")
         }
         .frame(minWidth: 680, minHeight: 460)
         .onAppear { if !model.settings.onboardingDone { showOnboarding = true } }

@@ -81,6 +81,7 @@ struct FloatrSettings: Codable, Equatable {
     var alwaysPressToolbar = false
 
     var onboardingDone = false
+    var checkForUpdates = true
     var language: AppLanguage = .en
 
     // Tolerant decoding: settings written by an older build keep working.
@@ -105,6 +106,7 @@ struct FloatrSettings: Codable, Equatable {
         alwaysPressToolbar = v(.alwaysPressToolbar, d.alwaysPressToolbar)
         onboardingDone = v(.onboardingDone, d.onboardingDone)
         language = v(.language, d.language)
+        checkForUpdates = v(.checkForUpdates, d.checkForUpdates)
     }
 
     /// The subset content.js needs, as plain property-list values.

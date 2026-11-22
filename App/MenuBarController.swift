@@ -42,6 +42,9 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         add(menu, String(localized: "Go to the video's tab"), .focusTab)
         menu.addItem(.separator())
 
+        let update = NSMenuItem(title: String(localized: "Check for Updates…"), action: #selector(checkUpdates), keyEquivalent: "")
+        update.target = self
+        menu.addItem(update)
         let settings = NSMenuItem(title: String(localized: "Settings…"), action: #selector(openSettings), keyEquivalent: ",")
         settings.target = self
         menu.addItem(settings)
@@ -64,6 +67,11 @@ final class MenuBarController: NSObject, NSMenuDelegate {
     @objc private func run(_ sender: NSMenuItem) {
         guard let raw = sender.representedObject as? String, let cmd = PiPCommand(rawValue: raw) else { return }
         AppModel.shared.perform(cmd)
+    }
+
+    @objc private func checkUpdates() {
+        (NSApp.delegate as? AppDelegate)?.showSettings(pane: .about)
+        Task { await Updater.shared.check() }
     }
 
     @objc private func openSettings() {

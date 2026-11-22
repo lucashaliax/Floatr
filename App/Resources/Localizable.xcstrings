@@ -1,6 +1,16 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "%@ %@ is available": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ está disponível"
+          }
+        }
+      }
+    },
     "About": {
       "localizations": {
         "pt-BR": {
@@ -151,6 +161,56 @@
         }
       }
     },
+    "Check Again": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procurar de novo"
+          }
+        }
+      }
+    },
+    "Check for Updates": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procurar atualizações"
+          }
+        }
+      }
+    },
+    "Check for Updates…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procurar atualizações…"
+          }
+        }
+      }
+    },
+    "Check for updates automatically": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procurar atualizações automaticamente"
+          }
+        }
+      }
+    },
+    "Checking for updates…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procurando atualizações…"
+          }
+        }
+      }
+    },
     "Click the toolbar button when Safari requires it": {
       "localizations": {
         "pt-BR": {
@@ -161,12 +221,52 @@
         }
       }
     },
+    "Click to update.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clique para atualizar."
+          }
+        }
+      }
+    },
     "Controls": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Controles"
+          }
+        }
+      }
+    },
+    "Couldn't reach GitHub. Check your connection and try again.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível acessar o GitHub. Verifique a conexão e tente de novo."
+          }
+        }
+      }
+    },
+    "Couldn't read the latest release. Try again later.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler a versão mais recente. Tente mais tarde."
+          }
+        }
+      }
+    },
+    "Couldn't replace the app in its folder. Download it from the release page instead.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível substituir o app na pasta. Baixe pela página do release."
           }
         }
       }
@@ -197,6 +297,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Concluir"
+          }
+        }
+      }
+    },
+    "Downloading…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baixando…"
           }
         }
       }
@@ -291,6 +401,16 @@
         }
       }
     },
+    "Floatr is up to date": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Floatr está atualizado"
+          }
+        }
+      }
+    },
     "Floatr needs to relaunch to change the language.": {
       "localizations": {
         "pt-BR": {
@@ -357,6 +477,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Em PiP: %@"
+          }
+        }
+      }
+    },
+    "Install and Relaunch": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instalar e reabrir"
+          }
+        }
+      }
+    },
+    "Installing…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instalando…"
           }
         }
       }
@@ -587,6 +727,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reabrir agora"
+          }
+        }
+      }
+    },
+    "Release Notes": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notas da versão"
           }
         }
       }
@@ -871,6 +1021,46 @@
         }
       }
     },
+    "The download failed. Try again.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O download falhou. Tente de novo."
+          }
+        }
+      }
+    },
+    "The downloaded app isn't signed by the same developer. Nothing was changed.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O app baixado não foi assinado pelo mesmo desenvolvedor. Nada foi alterado."
+          }
+        }
+      }
+    },
+    "The downloaded app isn't this app's new version. Nothing was changed.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O app baixado não é a nova versão deste app. Nada foi alterado."
+          }
+        }
+      }
+    },
+    "The downloaded file is damaged.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O arquivo baixado está danificado."
+          }
+        }
+      }
+    },
     "The floating button appears in the corner of a video when the pointer is over it. Useful for players Floatr doesn't know.": {
       "localizations": {
         "pt-BR": {
@@ -881,12 +1071,32 @@
         }
       }
     },
+    "The new version has no file to install yet.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A nova versão ainda não tem arquivo para instalar."
+          }
+        }
+      }
+    },
     "They work in any app while the video is in PiP.": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Funcionam em qualquer app, enquanto o vídeo está em PiP."
+          }
+        }
+      }
+    },
+    "This app has no update source.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este app não tem fonte de atualizações."
           }
         }
       }
@@ -907,6 +1117,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Três passos e o atalho já funciona."
+          }
+        }
+      }
+    },
+    "Try Again": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tentar de novo"
           }
         }
       }
@@ -947,6 +1167,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Versão %@"
+          }
+        }
+      }
+    },
+    "Version %@ is available": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A versão %@ está disponível"
           }
         }
       }

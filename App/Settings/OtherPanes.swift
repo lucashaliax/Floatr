@@ -163,6 +163,7 @@ struct AboutPane: View {
             .padding(.horizontal, 22)
             .padding(.vertical, 10)
             .background(Capsule().fill(.quaternary))
+            UpdateSection()
             Divider().frame(maxWidth: 320)
             VStack(alignment: .leading, spacing: 6) {
                 Label("Global shortcut → Floatr → extension → page", systemImage: "keyboard")
@@ -174,5 +175,65 @@ struct AboutPane: View {
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+// MARK: - Updates
+
+struct UpdateSection: View {
+    @ObservedObject private var updater = Updater.shared
+
+    var body: some View {
+        VStack(spacing: 10) {
+            switch updater.state {
+            case .idle:
+                Button("Check for Updates") { Task { await updater.check() } }
+            case .checking:
+                HStack(spacing: 8) { ProgressView().controlSize(.small); Text("Checking for updates…") }
+            case .upToDate:
+                Label("Floatr is up to date", systemImage: "checkmark.circle.fill")
+                    .foregroundStyle(.green)
+                Button("Check Again") { Task { await updater.check() } }
+            case .available(let release):
+                Text("Version \(release.version) is available").font(.headline)
+                if !release.notes.isEmpty {
+                    ScrollView {
+                        Text(LocalizedStringKey(Self.plain(release.notes)))
+                            .font(.callout)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .textSelection(.enabled)
+                    }
+                    .frame(maxWidth: 420, maxHeight: 120)
+                    .padding(10)
+                    .background(RoundedRectangle(cornerRadius: 8).fill(.quaternary.opacity(0.5)))
+                }
+                HStack {
+                    Link("Release Notes", destination: release.pageURL)
+                    Button("Install and Relaunch") { updater.install(release) }
+                        .keyboardShortcut(.defaultAction)
+                }
+            case .downloading:
+                HStack(spacing: 8) { ProgressView().controlSize(.small); Text("Downloading…") }
+            case .installing:
+                HStack(spacing: 8) { ProgressView().controlSize(.small); Text("Installing…") }
+            case .failed(let message):
+                Label(message, systemImage: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: 380)
+                Button("Try Again") { Task { await updater.check() } }
+            }
+        }
+        .padding(.top, 4)
+    }
+
+    /// Release notes are Markdown; keep inline styling but drop headings and code fences.
+    static func plain(_ markdown: String) -> String {
+        markdown
+            .components(separatedBy: "\n")
+            .filter { !$0.hasPrefix("```") }
+            .map { $0.hasPrefix("#") ? $0.trimmingCharacters(in: CharacterSet(charactersIn: "# ")) : $0 }
+            .joined(separator: "\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

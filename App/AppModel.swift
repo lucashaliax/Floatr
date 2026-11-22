@@ -26,6 +26,8 @@ final class AppModel: ObservableObject {
     @Published var takenShortcuts: Set<PiPCommand> = []
     /// Title of the video that is floating, if any (from the extension's events).
     @Published var floatingTitle: String?
+    /// Pane shown in the settings window (set when opening it from a notification or menu).
+    @Published var selectedPane: SettingsPane? = .shortcuts
 
     private var lastGestureFallback = Date.distantPast
 

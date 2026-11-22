@@ -65,6 +65,7 @@ Todos os atalhos podem ser trocados nos ajustes. Os controles funcionam em qualq
 - Regras por site: botões, auto-PiP, velocidade padrão
 - HUD na tela como o indicador de volume do sistema
 - Roda invisível (sem ícone no Dock); ícone na barra de menus opcional
+- Atualiza sozinho: Check for Updates no Sobre (e uma verificação automática por dia) baixa o último release, verifica a assinatura e reabre o app
 - Abre ao iniciar a sessão; interface em inglês e português
 
 ## Requisitos

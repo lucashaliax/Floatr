@@ -1,9 +1,10 @@
 import AppKit
 import SwiftUI
+import UserNotifications
 
 @main
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     private var settingsWindow: NSWindow?
     private let model = AppModel.shared
 
@@ -36,12 +37,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         observeDarwin(DarwinName.event)
         observeDarwin(DarwinName.needsGesture)
         observeFrontmostApp()
+        startUpdateChecks()
         MenuBarController.shared.update()
         model.refreshExtensionState()
 
         // `open -a Floatr --args -FloatrPreviewHUD pipOff` shows one HUD (used to check its look).
         if let raw = UserDefaults.standard.string(forKey: "FloatrPreviewHUD"), let event = HUDEvent(rawValue: raw) {
             HUD.shared.show(event, detail: "1,5×")
+            return
+        }
+        // `open -a Floatr --args -FloatrRunUpdate YES` checks and installs the latest release
+        // without asking (used to test updates).
+        if UserDefaults.standard.bool(forKey: "FloatrRunUpdate") {
+            Task {
+                if let release = await Updater.shared.check() {
+                    NSLog("Floatr: installing \(release.version)")
+                    Updater.shared.install(release)
+                } else {
+                    NSLog("Floatr: no update (\(String(describing: Updater.shared.state)))")
+                }
+            }
             return
         }
         // `open -a Floatr --args -FloatrRunCommand toggle` runs one command, as if its shortcut
@@ -73,7 +88,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: Settings window
 
-    func showSettings() {
+    func showSettings(pane: SettingsPane? = nil) {
+        if let pane { model.selectedPane = pane }
         if settingsWindow == nil {
             let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 760, height: 540),
                                   styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
@@ -91,6 +107,33 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activate()
         settingsWindow?.makeKeyAndOrderFront(nil)
         model.refreshExtensionState()
+    }
+
+    // MARK: Updates
+
+    private var updateTimer: Timer?
+
+    /// Checks GitHub once a day (the timer only looks at the date every 6 hours).
+    private func startUpdateChecks() {
+        UNUserNotificationCenter.current().delegate = self
+        let tick = { [weak self] in
+            guard let self, self.model.settings.checkForUpdates else { return }
+            Updater.shared.checkInBackgroundIfDue()
+        }
+        tick()
+        updateTimer = Timer.scheduledTimer(withTimeInterval: 6 * 3600, repeats: true) { _ in
+            MainActor.assumeIsolated { tick() }
+        }
+        updateTimer?.tolerance = 600
+    }
+
+    /// Clicking the "new version" notification opens About, where the update can be installed.
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
+                                            withCompletionHandler completionHandler: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            MainActor.assumeIsolated { self.showSettings(pane: .about) }
+            completionHandler()
+        }
     }
 
     // MARK: Notifications
