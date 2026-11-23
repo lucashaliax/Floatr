@@ -150,7 +150,7 @@ final class TabProbe {
             guard let a = answers[i] else { return "\(i):-" }
             return "\(i)\(i == frontIndex ? "*" : ""):\(a.hasVideo ? "v" : "")\(a.playing ? "p" : "")\(a.audible ? "a" : "")"
         }.joined(separator: " ")
-        probeLog.info("probe \(answers.count)/\(pages.count) tabs answered [\(summary, privacy: .public)]")
+        probeLog.notice("probe \(answers.count)/\(pages.count) tabs answered [\(summary, privacy: .public)]")
         let front = frontIndex.flatMap { answers[$0] }
         let pick: SFSafariPage?
         if front?.playing == true {

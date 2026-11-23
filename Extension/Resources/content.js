@@ -142,6 +142,22 @@
     });
   }
 
+  /** Diagnostics for the extension's log (Console.app, subsystem app.floatr.Floatr.Extension).
+   *  Only sent while handling a command, never on page activity. */
+  function trace(step, extra) {
+    send('trace', Object.assign({ step, host, frame: isTop ? 'top' : 'iframe' }, extra || {}));
+  }
+  function describe(v) {
+    if (!v) return {};
+    return {
+      paused: v.paused, muted: v.muted, ready: v.readyState, mode: v.webkitPresentationMode || '',
+      supportsPiP: typeof v.webkitSupportsPresentationMode === 'function' ? v.webkitSupportsPresentationMode('picture-in-picture') : 'n/a',
+      disabled: !!v.disablePictureInPicture, pipElement: document.pictureInPictureElement === v,
+      size: Math.round(v.getBoundingClientRect().width) + 'x' + Math.round(v.getBoundingClientRect().height),
+      src: (v.currentSrc || v.src || '').slice(0, 40),
+    };
+  }
+
   function report(event, detail) {
     send('result', detail ? { event, detail: String(detail) } : { event });
   }
@@ -149,20 +165,24 @@
   async function enterPiP(v, opts) {
     opts = opts || {};
     unblock(v);
-    let threw = false;
+    let threw = false, how = 'none', error = '';
     try {
       if (typeof v.webkitSetPresentationMode === 'function' &&
           (!v.webkitSupportsPresentationMode || v.webkitSupportsPresentationMode('picture-in-picture'))) {
+        how = 'webkitSetPresentationMode';
         v.webkitSetPresentationMode('picture-in-picture');
       } else if (typeof v.requestPictureInPicture === 'function') {
+        how = 'requestPictureInPicture';
         await v.requestPictureInPicture();
       } else {
         threw = true;
       }
     } catch (e) {
       threw = true;
+      error = String(e && (e.name + ': ' + e.message)).slice(0, 120);
     }
     const ok = !threw && await waitFor(() => isInPiP(v), 700);
+    if (!opts.silent) trace('enter', Object.assign({ how, threw, error, ok, trusted: !!opts.trusted }, describe(v)));
     if (ok) return true;
     if (opts.silent) return false;
     if (!opts.trusted) {
@@ -192,6 +212,7 @@
 
   async function execLocal(cmd, opts) {
     const target = pipVideo() || (bestLocal() || {}).video;
+    trace('exec', Object.assign({ cmd, videos: allVideos().length, found: !!target, inPiP: !!target && isInPiP(target) }, describe(target)));
     if (!target) { report('noVideo'); return; }
     switch (cmd) {
       case 'toggle':
@@ -313,6 +334,7 @@
     const results = await collect();
     results.sort((a, b) => b.score - a.score);
     const win = results[0];
+    trace('route', { cmd, frames: results.length, best: win ? Math.round(win.score) : null, inIframe: !!(win && win.source) });
     if (!win || win.score < 0) { report('noVideo'); return; }
     if (!win.source) return execLocal(cmd, opts);
     try { win.source.postMessage({ [MARK]: 'exec', cmd, trusted: !!opts.trusted, silent: !!opts.silent }, '*'); } catch (e) { /* gone */ }

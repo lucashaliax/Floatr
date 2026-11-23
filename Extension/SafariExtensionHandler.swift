@@ -22,6 +22,10 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
         case .ack:
             if let id = info["id"] as? String { tracker.ack(id) }
 
+        case .trace:
+            let text = info.keys.sorted().map { "\($0)=\(info[$0] ?? "")" }.joined(separator: " ")
+            log.notice("page: \(text, privacy: .public)")
+
         case .probeResult:
             if let id = info["id"] as? String { TabProbe.shared.receive(id: id, info: info) }
 
@@ -38,7 +42,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
         case .needsGesture:
             // Safari refused PiP because no click reached the page. The app presses our
             // toolbar button through Accessibility, which comes back as toolbarItemClicked.
-            log.info("PiP needs a user gesture; asking the app to press the toolbar button")
+            log.notice("PiP needs a user gesture; asking the app to press the toolbar button")
             // The click must go back to this page, which may be a background tab.
             GestureTarget.shared.set(page)
             Darwin.post(DarwinName.needsGesture)
@@ -58,7 +62,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
             return
         }
         guard let command = PiPCommand(rawValue: messageName) else { return }
-        log.info("command from app: \(messageName, privacy: .public)")
+        log.notice("command from app: \(messageName, privacy: .public)")
 
         if command == .focusTab {
             focusPiPTab()
@@ -143,7 +147,7 @@ final class SafariExtensionHandler: SFSafariExtensionHandler {
                 self.allPages { pages in
                     TabProbe.shared.choose(front: front, pages: pages) { pick in
                         if let pick, let front, !pick.isEqual(front) {
-                            log.info("front tab has nothing playing; sending \(name, privacy: .public) to the tab playing audio")
+                            log.notice("front tab has nothing playing; sending \(name, privacy: .public) to the tab playing audio")
                         }
                         send(pick)
                     }

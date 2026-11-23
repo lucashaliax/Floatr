@@ -35,5 +35,8 @@ A Safari App Extension plus an invisible Mac app (no Dock icon, optional menu ba
 
 ## Status
 
-- Current release: 1.0.5 (player buttons sized like their neighbour and placed next to the fullscreen button; YouTube nests its controls in groups since late 2026).
+- Current release: 1.0.6 (diagnostic log of every command, kept by the system).
+- Diagnostics: while handling a command, the page sends `trace` lines (site, route, chosen video state, PiP attempt and Safari's error) that the extension logs at notice level, so they persist. Read them with `log show --last 1h --style compact --predicate 'subsystem == "app.floatr.Floatr.Extension"'`. Use this first when the user reports "the shortcut didn't work": ask for the time.
+- Known open question: on 2026-11-23 about 15 shortcut presses on a YouTube tab reached the page (front tab, video playing with sound, command acknowledged) with no failure reported, yet the user saw no PiP; after reloading the tab it worked. No trace existed then, so the cause is unknown.
+- Memory: the app is ~8 MB at rest and ~14 MB after its first update check (network libraries stay loaded); `build.sh` waits 15 s so that check doesn't show up as idle CPU.
 - No open tasks. Bugs are reported by the user as they find them.

@@ -41,5 +41,7 @@ if [[ "${1:-}" == "--zip" ]]; then
   echo "Wrote build/release/Floatr.zip"
 fi
 
-sleep 5
+# Wait out launch work (including the daily update check, which uses the network) so the
+# measurement shows the app at rest.
+sleep 15
 tools/check_resources.sh /Applications/Floatr.app

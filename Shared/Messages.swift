@@ -41,6 +41,7 @@ enum ScriptMessage: String {
     case needsGesture   // PiP refused without a user gesture -> app presses the toolbar button
     case ack            // {id} the top frame received a command (lets the extension detect dead pages)
     case probeResult    // {id, score, playing, audible} answer to "probe": what the tab has
+    case trace          // diagnostics from the page while it handles a command (logged)
 }
 
 /// Events shown in the HUD. Raw values are what content.js sends in `result.event`.
