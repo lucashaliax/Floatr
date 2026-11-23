@@ -591,6 +591,16 @@
         }
       }
     },
+    "Once a week. A notification tells you when a new version is out.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma vez por semana. Uma notificação avisa quando sai uma versão nova."
+          }
+        }
+      }
+    },
     "Open Safari Settings": {
       "localizations": {
         "pt-BR": {

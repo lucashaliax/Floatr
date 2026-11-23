@@ -81,7 +81,9 @@ struct FloatrSettings: Codable, Equatable {
     var alwaysPressToolbar = false
 
     var onboardingDone = false
-    var checkForUpdates = true
+    /// Weekly automatic update check. Off by default; stored under a new key because the old
+    /// one (`checkForUpdates`) was saved as on when that was the default.
+    var autoCheckUpdates = false
     var language: AppLanguage = .en
 
     // Tolerant decoding: settings written by an older build keep working.
@@ -106,7 +108,7 @@ struct FloatrSettings: Codable, Equatable {
         alwaysPressToolbar = v(.alwaysPressToolbar, d.alwaysPressToolbar)
         onboardingDone = v(.onboardingDone, d.onboardingDone)
         language = v(.language, d.language)
-        checkForUpdates = v(.checkForUpdates, d.checkForUpdates)
+        autoCheckUpdates = v(.autoCheckUpdates, d.autoCheckUpdates)
     }
 
     /// True when something content.js uses changed (shortcuts and app-only options don't count).

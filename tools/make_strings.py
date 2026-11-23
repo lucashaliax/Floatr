@@ -29,6 +29,7 @@ PT = {
  "Installing…": "Instalando…",
  "Try Again": "Tentar de novo",
  "Check for updates automatically": "Procurar atualizações automaticamente",
+ "Once a week. A notification tells you when a new version is out.": "Uma vez por semana. Uma notificação avisa quando sai uma versão nova.",
  "About": "Sobre",
  "Accessibility allowed": "Acessibilidade permitida",
  "Accessibility not allowed": "Acessibilidade não permitida",

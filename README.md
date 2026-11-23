@@ -64,7 +64,7 @@ Every shortcut can be changed in Floatr's settings. The controls work in any app
 - Per-site rules: buttons, auto PiP, default speed
 - On-screen HUD like the system volume indicator
 - Runs invisibly (no Dock icon); optional menu bar icon
-- Updates itself: Check for Updates in About (and a daily automatic check) downloads the latest release, verifies its signature and relaunches
+- Updates itself: Check for Updates in About (and an optional weekly automatic check) downloads the latest release, verifies its signature and relaunches
 - Open at login, English and Portuguese interface
 
 ## Requirements

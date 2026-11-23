@@ -113,11 +113,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
 
     private var updateTimer: Timer?
 
-    /// Checks GitHub once a day (the timer only looks at the date every 6 hours).
+    /// Checks GitHub once a week when turned on (the timer only looks at the date every 6 hours).
     private func startUpdateChecks() {
         UNUserNotificationCenter.current().delegate = self
         let tick = { [weak self] in
-            guard let self, self.model.settings.checkForUpdates else { return }
+            guard let self, self.model.settings.autoCheckUpdates else { return }
             Updater.shared.checkInBackgroundIfDue()
         }
         tick()

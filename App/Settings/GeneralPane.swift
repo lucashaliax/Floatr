@@ -35,7 +35,8 @@ struct GeneralPane: View {
                 Toggle("Open at login", isOn: Binding(get: { model.launchAtLogin },
                                                                   set: { model.setLaunchAtLogin($0) }))
                 Toggle("Show icon in the menu bar", isOn: $model.settings.showMenuBarIcon)
-                Toggle("Check for updates automatically", isOn: $model.settings.checkForUpdates)
+                Toggle("Check for updates automatically", isOn: $model.settings.autoCheckUpdates)
+                    .help(Text("Once a week. A notification tells you when a new version is out."))
                 Toggle("Show on-screen confirmation (HUD)", isOn: $model.settings.showHUD)
             }
 
