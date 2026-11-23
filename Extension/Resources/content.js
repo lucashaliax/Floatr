@@ -433,7 +433,7 @@
   // and which existing control we go in front of. Sites change their markup over time;
   // the hover button covers anything these selectors miss.
   const PLAYERS = [
-    { id: 'youtube', hosts: /(^|\.)youtube(-nocookie)?\.com$/, bar: '.ytp-right-controls', cls: 'ytp-button', before: '.ytp-fullscreen-button', pad: '10px' },
+    { id: 'youtube', hosts: /(^|\.)youtube(-nocookie)?\.com$/, bar: '.ytp-right-controls', cls: 'ytp-button', before: '.ytp-fullscreen-button', size: '48px' },
     { id: 'twitch', hosts: /(^|\.)twitch\.tv$/, bar: '.player-controls__right-control-group', cls: '', before: '[data-a-target="player-fullscreen-button"]', size: '30px' },
     { id: 'vimeo', hosts: /(^|\.)vimeo\.com$/, bar: '.vp-controls .vp-controls-wrapper, [class*="ControlBar_module_controlBarWrapper"] [class*="ControlBar_module_right"]', cls: '', before: '.fullscreen, [data-fullscreen-button]', size: '28px' },
     { id: 'netflix', hosts: /(^|\.)netflix\.com$/, bar: '[data-uia="controls-standard"] div:has(> button[data-uia="control-fullscreen-enter"])', cls: '', before: 'button[data-uia="control-fullscreen-enter"]', size: '40px' },
@@ -455,15 +455,26 @@
     return (bestLocal() || {}).video || null;
   }
 
-  function makeButton(player) {
+  /**
+   * A button sized like its neighbour in the player's control bar (`ref`), with a fixed-size
+   * icon. Relying on the site's CSS to size it collapsed it into a dot when YouTube changed
+   * its controls, so nothing here depends on percentages or the site's button styles.
+   */
+  function makeButton(player, ref) {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = ('floatr-btn ' + (player.cls || '')).trim();
     b.title = 'Picture in Picture (Floatr)';
     b.setAttribute('aria-label', 'Picture in Picture');
-    b.innerHTML = ICON;
-    b.style.cssText = 'background:transparent;border:0;cursor:pointer;opacity:.92;display:inline-flex;align-items:center;justify-content:center;' +
-      (player.size ? `width:${player.size};height:${player.size};` : '') + (player.pad ? `padding:${player.pad};` : 'padding:4px;');
+    const rr = ref && ref.getBoundingClientRect();
+    const w = rr && rr.width >= 16 ? Math.round(rr.width) : null;
+    const h = rr && rr.height >= 16 ? Math.round(rr.height) : null;
+    const box = w && h ? `width:${w}px;height:${h}px;` : (player.size ? `width:${player.size};height:${player.size};` : 'width:36px;height:36px;');
+    const icon = h ? Math.max(16, Math.min(28, Math.round(Math.min(w, h) * 0.55))) : 22;
+    b.innerHTML = ICON.replace('width="100%" height="100%"', `width="${icon}" height="${icon}"`);
+    b.style.cssText = 'background:transparent;border:0;margin:0;padding:0;cursor:pointer;opacity:.92;flex:none;' +
+      'display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;box-sizing:border-box;' + box;
+    b.firstElementChild.style.cssText = `display:block;width:${icon}px;height:${icon}px;flex:none;pointer-events:none`;
     b.addEventListener('click', ev => {
       ev.preventDefault();
       ev.stopPropagation();
@@ -483,11 +494,14 @@
       let bars;
       try { bars = document.querySelectorAll(p.bar); } catch (e) { continue; } // :has() unsupported
       for (const bar of bars) {
-        if (bar.querySelector(':scope > .floatr-btn')) continue;
-        const btn = makeButton(p);
+        if (bar.querySelector('.floatr-btn')) continue;
+        // Go next to the reference control (usually fullscreen) wherever it sits: players
+        // like YouTube nest their buttons in groups inside the bar.
         let before = null;
-        if (p.before) { try { before = bar.querySelector(':scope > ' + p.before) || null; } catch (e) { before = null; } }
-        bar.insertBefore(btn, before);
+        if (p.before) { try { before = bar.querySelector(p.before); } catch (e) { before = null; } }
+        const container = before ? before.parentElement : bar;
+        const neighbour = before || [...bar.querySelectorAll('button')].find(x => x.getBoundingClientRect().width >= 16) || null;
+        container.insertBefore(makeButton(p, neighbour), before);
       }
     }
   }

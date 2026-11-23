@@ -28,11 +28,12 @@ A Safari App Extension plus an invisible Mac app (no Dock icon, optional menu ba
 - Safari pauses muted autoplay videos in background tabs, so test pages mark themselves with `data-floatr-test-audible` to count as audio.
 - Settings changes are pushed to every open tab (app → `settingsChanged` → extension → `settings`), debounced 0.3 s; `refreshButtons` removes buttons of players turned off and the floating button.
 - The floating button is a pill with icon and "PiP" label: a bare 30 px icon looked like a dot.
+- Buttons inside players (`PLAYERS` in `content.js`) find the reference control (`before`, usually fullscreen) anywhere in the bar and insert next to it, copying its size; the icon has a fixed pixel size. YouTube's bar now holds `.ytp-right-controls-left` / `-right` groups (fullscreen is in the right one), and percentage-sized icons collapsed into a dot.
 - The content script avoids per-event work: DOM changes trigger at most one scan per 400 ms, the deep search for videos in shadow roots is reused for 2 s during scans, and the hover button works once per frame. Measured on a 15,000-element page changing 20×/s: 1.2 ms of work per second, versus 8.1 ms for PiPifier 1.4's script (which runs on every DOM change). Test hooks `window.__floatr.scanNow` / `applySettings` exist only when no Safari extension is present.
 - `build.sh` kills the old `Floatr Extension.appex` process, because Safari otherwise keeps running the old extension.
 - Updates: `App/Updater.swift` (self-contained, also used as the template for other apps) reads `UpdateRepository` from Info.plist, downloads `Floatr.zip` from the latest release, and installs it only if the bundle id matches and the signature is valid with the same team. Test without UI: `open -a Floatr --args -FloatrRunUpdate YES`.
 
 ## Status
 
-- Current release: 1.0.4 (shortcut reaches a background tab playing audio; floating button redesign; settings apply to open tabs).
+- Current release: 1.0.5 (player buttons sized like their neighbour and placed next to the fullscreen button; YouTube nests its controls in groups since late 2026).
 - No open tasks. Bugs are reported by the user as they find them.
