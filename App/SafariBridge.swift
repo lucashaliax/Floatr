@@ -22,6 +22,14 @@ enum SafariBridge {
         }
     }
 
+    /// Tells the extension that settings changed, so open pages apply them right away.
+    static func pushSettings() {
+        guard safariApp != nil else { return }
+        SFSafariApplication.dispatchMessage(withName: Floatr.settingsChangedMessage,
+                                            toExtensionWithIdentifier: Floatr.extensionBundleID,
+                                            userInfo: nil) { _ in }
+    }
+
     /// nil when Safari can't tell (for example the extension was never registered).
     static func extensionEnabled(_ completion: @escaping (Bool?) -> Void) {
         SFSafariExtensionManager.getStateOfSafariExtension(withIdentifier: Floatr.extensionBundleID) { state, error in

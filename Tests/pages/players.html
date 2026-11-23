@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8"><title>Floatr player buttons test</title>
+<body style="margin:0;background:#111;color:#eee;font:14px -apple-system">
+<!-- A minimal Video.js-style player, to test buttons injected into player controls. -->
+<div class="video-js" style="width:640px">
+  <video id="v" width="640" height="360" muted></video>
+  <div class="vjs-control-bar" style="display:flex;gap:8px;padding:6px;background:#222"><button class="vjs-fullscreen-control">⤢</button></div>
+</div>
+<script src="stream.js"></script><script>wire('v', '#36c', true);</script>
+<script src="content.js"></script>

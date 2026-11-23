@@ -57,6 +57,7 @@ Todos os atalhos podem ser trocados nos ajustes. Os controles funcionam em qualq
 
 - Atalhos globais, gravados como qualquer atalho do Mac, com aviso de conflito
 - Escolhe o vídeo certo: o que está tocando, o maior, inclusive dentro de players incorporados (iframes de outros sites também)
+- Funciona de qualquer aba: se a aba da frente não tem nada tocando, o atalho vai para a aba que está tocando áudio
 - O mesmo atalho tira o vídeo do PiP
 - Libera o PiP em sites que o bloqueiam
 - Auto-PiP ao trocar de aba, por site

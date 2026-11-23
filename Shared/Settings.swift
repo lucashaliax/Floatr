@@ -109,6 +109,14 @@ struct FloatrSettings: Codable, Equatable {
         checkForUpdates = v(.checkForUpdates, d.checkForUpdates)
     }
 
+    /// True when something content.js uses changed (shortcuts and app-only options don't count).
+    func scriptPayloadChanged(from old: FloatrSettings) -> Bool {
+        unblockPiP != old.unblockPiP || autoPiPOnTabSwitch != old.autoPiPOnTabSwitch
+            || seekSeconds != old.seekSeconds || rateStep != old.rateStep
+            || playerButtons != old.playerButtons || hoverButton != old.hoverButton
+            || enabledPlayers != old.enabledPlayers || siteRules != old.siteRules
+    }
+
     /// The subset content.js needs, as plain property-list values.
     var scriptPayload: [String: Any] {
         [

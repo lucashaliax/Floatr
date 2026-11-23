@@ -14,6 +14,9 @@ enum Floatr {
     /// Label of the toolbar item; the app looks for a button with this title when it
     /// has to press the toolbar item through Accessibility.
     static let toolbarLabel = "Floatr"
+
+    /// App → extension: settings changed, push them to every open page.
+    static let settingsChangedMessage = "settingsChanged"
 }
 
 /// Commands sent app → extension → page. Raw values are the message names content.js understands.
@@ -37,6 +40,7 @@ enum ScriptMessage: String {
     case result         // {event: String, title: String?} -> HUD
     case needsGesture   // PiP refused without a user gesture -> app presses the toolbar button
     case ack            // {id} the top frame received a command (lets the extension detect dead pages)
+    case probeResult    // {id, score, playing, audible} answer to "probe": what the tab has
 }
 
 /// Events shown in the HUD. Raw values are what content.js sends in `result.event`.

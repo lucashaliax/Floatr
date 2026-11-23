@@ -48,18 +48,25 @@
   // ---------------------------------------------------------------- finding videos
 
   /** All <video> elements in this frame, including ones inside open shadow roots. */
-  function allVideos() {
+  // Videos inside web components (open shadow roots) need a walk over the whole page.
+  // Automatic scans reuse the last walk for 2 s; commands and clicks always walk again.
+  let shadowVideos = [], shadowWalkAt = -Infinity;
+  function allVideos(opts) {
     const out = Array.from(document.getElementsByTagName('video'));
-    if (document.body && out.length === 0) {
-      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
-      let n = walker.nextNode();
-      let budget = 20000;
-      while (n && budget-- > 0) {
-        if (n.shadowRoot) out.push(...n.shadowRoot.querySelectorAll('video'));
-        n = walker.nextNode();
-      }
+    if (!document.body || out.length > 0) return out;
+    const now = performance.now();
+    if (opts && opts.cached && now - shadowWalkAt < 2000) return shadowVideos.filter(v => v.isConnected);
+    const found = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
+    let n = walker.nextNode();
+    let budget = 20000;
+    while (n && budget-- > 0) {
+      if (n.shadowRoot) found.push(...n.shadowRoot.querySelectorAll('video'));
+      n = walker.nextNode();
     }
-    return out;
+    shadowVideos = found;
+    shadowWalkAt = now;
+    return found;
   }
 
   function isInPiP(v) {
@@ -85,6 +92,26 @@
     if (!v.muted && v.volume > 0) s += 1e7;
     if (r.width < 48 || r.height < 48) s -= 1e9; // tracking pixels, hidden previews
     return s;
+  }
+
+  /** Playing with sound: what the user hears. (Test pages can mark muted videos as audible,
+   *  because Safari won't autoplay with sound without a click.) */
+  function audible(v) {
+    // Test pages only: Safari pauses muted autoplay videos in background tabs and won't play
+    // with sound without a click, so a marked page counts its videos as audible.
+    if (document.documentElement.hasAttribute('data-floatr-test-audible')) return v.readyState > 0;
+    return !v.paused && !v.ended && v.readyState > 2 && !v.muted && v.volume > 0;
+  }
+
+  /** What this frame has, for the extension's tab probe. */
+  function localState() {
+    const vids = allVideos();
+    const b = bestLocal();
+    return {
+      score: b ? b.score : -1,
+      playing: vids.some(v => !v.paused && !v.ended),
+      audible: vids.some(audible),
+    };
   }
 
   function bestLocal() {
@@ -222,19 +249,28 @@
 
   /** Top frame: gathers the best video of every frame. Resolves to [{score, source|null}]. */
   function collect() {
-    const local = bestLocal();
-    const results = [{ score: local ? local.score : -1, source: null }];
+    const results = [Object.assign(localState(), { source: null })];
     const children = frameWindows(window);
     if (children.length === 0) return Promise.resolve(results);
     const id = Math.random().toString(36).slice(2);
-    pendingCollections.set(id, results);
-    for (const w of children) {
-      try { w.postMessage({ [MARK]: 'collect', id }, '*'); } catch (e) { /* gone */ }
-    }
-    return new Promise(resolve => setTimeout(() => {
-      pendingCollections.delete(id);
-      resolve(results);
-    }, 160));
+    return new Promise(resolve => {
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        pendingCollections.delete(id);
+        resolve(results);
+      };
+      // Finish as soon as every direct child answered: background tabs throttle timers to ≥1 s,
+      // so the timeout is only a safety net for frames that never answer.
+      results.expected = children.length + 1;
+      results.finish = finish;
+      pendingCollections.set(id, results);
+      for (const w of children) {
+        try { w.postMessage({ [MARK]: 'collect', id }, '*'); } catch (e) { /* gone */ }
+      }
+      setTimeout(finish, 160);
+    });
   }
 
   window.addEventListener('message', ev => {
@@ -243,8 +279,8 @@
     switch (d[MARK]) {
       case 'collect': {
         // Answer the top frame directly and pass the request down to nested frames.
-        const b = bestLocal();
-        try { window.top.postMessage({ [MARK]: 'score', id: d.id, score: b ? b.score : -1 }, '*'); } catch (e) { /* noop */ }
+        const st = localState();
+        try { window.top.postMessage({ [MARK]: 'score', id: d.id, score: st.score, playing: st.playing, audible: st.audible }, '*'); } catch (e) { /* noop */ }
         for (const w of frameWindows(window)) {
           try { w.postMessage({ [MARK]: 'collect', id: d.id }, '*'); } catch (e) { /* noop */ }
         }
@@ -252,7 +288,10 @@
       }
       case 'score': {
         const list = isTop && pendingCollections.get(d.id);
-        if (list) list.push({ score: Number(d.score), source: ev.source });
+        if (list) {
+          list.push({ score: Number(d.score), playing: !!d.playing, audible: !!d.audible, source: ev.source });
+          if (list.length >= list.expected && list.finish) list.finish();
+        }
         break;
       }
       case 'exec':
@@ -290,6 +329,16 @@
         return;
       }
       if (!isTop) return; // the top frame coordinates; iframes act on its postMessage
+      if (ev.name === 'probe') {
+        // The extension asks every tab what it has, to pick a background tab playing audio.
+        collect().then(results => send('probeResult', {
+          id: info.id,
+          score: Math.max(...results.map(x => x.score)),
+          playing: results.some(x => x.playing),
+          audible: results.some(x => x.audible),
+        }));
+        return;
+      }
       // Answer at once so the extension knows this page is alive (dead or script-less pages never answer).
       if (info.id) send('ack', { id: info.id });
       route(ev.name, { trusted: !!info.viaToolbar });
@@ -318,7 +367,7 @@
   const childHasVideo = new Map();
   let lastPresence = null;
   function reportVideoPresence() {
-    const localFound = allVideos().length > 0;
+    const localFound = knownVideos.length > 0; // the scan that calls this just refreshed the list
     if (!isTop) {
       try { window.top.postMessage({ [MARK]: 'has', found: localFound }, '*'); } catch (e) { /* noop */ }
       return;
@@ -454,9 +503,16 @@
     hoverHost = document.createElement('div');
     hoverHost.style.cssText = 'position:fixed;z-index:2147483647;top:0;left:0;width:0;height:0;';
     const root = hoverHost.attachShadow({ mode: 'closed' });
-    root.innerHTML = '<style>button{all:initial;position:fixed;width:30px;height:30px;padding:6px;box-sizing:border-box;border-radius:8px;' +
-      'background:rgba(20,20,20,.62);-webkit-backdrop-filter:blur(12px);cursor:pointer;opacity:0;transition:opacity .15s}' +
-      'button.on{opacity:1}button:hover{background:rgba(20,20,20,.82)}</style><button title="Picture in Picture (Floatr)">' + ICON + '</button>';
+    // A pill with icon and label: a bare 30 px icon read as a dot over busy video.
+    root.innerHTML = '<style>' +
+      'button{all:initial;position:fixed;display:flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 11px;' +
+      'box-sizing:border-box;border-radius:18px;background:rgba(18,18,18,.72);border:1px solid rgba(255,255,255,.28);' +
+      '-webkit-backdrop-filter:blur(14px) saturate(1.4);box-shadow:0 4px 14px rgba(0,0,0,.35);cursor:pointer;' +
+      'color:#fff;font:600 13px/1 -apple-system,system-ui,sans-serif;letter-spacing:.2px;' +
+      'opacity:0;pointer-events:none;transition:opacity .15s,background .15s}' +
+      'button.on{opacity:1;pointer-events:auto}button:hover{background:rgba(18,18,18,.9)}' +
+      'svg{display:block;width:20px;height:20px;flex:none}</style>' +
+      '<button title="Picture in Picture (Floatr)">' + ICON + '<span>PiP</span></button>';
     hoverBtn = root.querySelector('button');
     hoverBtn.addEventListener('click', ev => {
       ev.preventDefault(); ev.stopPropagation();
@@ -495,15 +551,22 @@
     hoverHide = 0;
     hoverVideo = v;
     const r = v.getBoundingClientRect();
-    hoverBtn.style.top = Math.max(8, r.top + 10) + 'px';
-    hoverBtn.style.left = Math.min(innerWidth - 40, r.right - 40) + 'px';
+    const w = hoverBtn.offsetWidth || 80;
+    hoverBtn.style.top = Math.max(8, r.top + 12) + 'px';
+    hoverBtn.style.left = Math.max(8, Math.min(innerWidth - w - 12, r.right - w - 12)) + 'px';
     hoverBtn.classList.add('on');
   }
   document.addEventListener('mousemove', onMouseMove, { passive: true, capture: true });
 
+  /** Applies new settings at once: removes buttons of players that were turned off and the
+   *  floating button if it was turned off. */
   function refreshButtons() {
-    if (buttonsEnabled()) injectPlayerButtons(); else removePlayerButtons();
-    if (!settings.hoverButton && hoverBtn) hoverBtn.classList.remove('on');
+    removePlayerButtons();
+    if (buttonsEnabled()) injectPlayerButtons();
+    if ((!settings.hoverButton || !buttonsEnabled()) && hoverHost) {
+      hoverHost.remove();
+      hoverHost = hoverBtn = hoverVideo = null;
+    }
   }
 
   // ---------------------------------------------------------------- DOM watching (throttled)
@@ -515,7 +578,7 @@
     scheduled = true;
     setTimeout(() => {
       scheduled = false;
-      knownVideos = allVideos();
+      knownVideos = allVideos({ cached: true });
       reportVideoPresence();
       if (buttonsEnabled()) injectPlayerButtons();
       if (settings.unblockPiP) document.querySelectorAll('video[disablepictureinpicture]').forEach(unblock);
@@ -533,5 +596,12 @@
   scheduleScan();
 
   // Test hook (only used by Tests/pages when no Safari extension is present).
-  if (!ext) window.__floatr = { route, execLocal, bestLocal, allVideos, score, setSettings: s => Object.assign(settings, s) };
+  if (!ext) window.__floatr = {
+    route, execLocal, bestLocal, allVideos, score,
+    setSettings: s => Object.assign(settings, s),
+    // Same path as the extension's "settings" message.
+    applySettings: s => { Object.assign(settings, s); refreshButtons(); },
+    // One automatic DOM scan, as scheduleScan runs it (for timing on bench pages).
+    scanNow: () => { knownVideos = allVideos({ cached: true }); reportVideoPresence(); if (buttonsEnabled()) injectPlayerButtons(); },
+  };
 })();

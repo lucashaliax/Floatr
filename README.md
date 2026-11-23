@@ -55,6 +55,7 @@ Every shortcut can be changed in Floatr's settings. The controls work in any app
 
 - Global shortcuts, recorded like any Mac shortcut, with conflict warnings
 - Picks the right video: playing beats paused, big beats small, embedded players included (cross-origin iframes too)
+- Works from any tab: if the tab in front has nothing playing, the shortcut goes to the tab that is playing audio
 - Toggles: the same shortcut brings the video back
 - Unblocks Picture in Picture on sites that disable it
 - Auto PiP when you switch tabs, per site

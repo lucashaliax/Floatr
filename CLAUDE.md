@@ -23,12 +23,16 @@ A Safari App Extension plus an invisible Mac app (no Dock icon, optional menu ba
 ## Decisions
 
 - Safari allows PiP only after a user gesture. When a page refuses, the extension tells the app, which presses Floatr's toolbar button through Accessibility. So the toolbar button must stay in Safari's toolbar.
-- Commands are queued and re-sent when a page reloads or loses the content script (fix in 1.0.2), so a shortcut doesn't silently fail.
-- The content script avoids per-event work: anything that runs on DOM changes is cached or batched once per frame (checked with `bench.html`).
+- Every command is acknowledged by the page (`ack`); with no answer in 1 s the extension drops the stale floating page and retries on the front tab, then shows "Reload the page" (1.0.2).
+- Shortcut target (1.0.4): the floating page if any; else `TabProbe` asks every tab (`probe` → `probeResult`, 0.4 s, early exit when the front tab is playing) and picks the front tab if its video plays, else a tab playing audio (playing, unmuted), else the front tab ("No video in this tab"). The toolbar button always targets the visible tab with no wait, so its click isn't lost. When a page asks for a click (`needsGesture`), `GestureTarget` remembers it so the app's toolbar press reaches that page even in a background tab. Safari accepted PiP in a background tab without a click in testing.
+- Safari pauses muted autoplay videos in background tabs, so test pages mark themselves with `data-floatr-test-audible` to count as audio.
+- Settings changes are pushed to every open tab (app → `settingsChanged` → extension → `settings`), debounced 0.3 s; `refreshButtons` removes buttons of players turned off and the floating button.
+- The floating button is a pill with icon and "PiP" label: a bare 30 px icon looked like a dot.
+- The content script avoids per-event work: DOM changes trigger at most one scan per 400 ms, the deep search for videos in shadow roots is reused for 2 s during scans, and the hover button works once per frame. Measured on a 15,000-element page changing 20×/s: 1.2 ms of work per second, versus 8.1 ms for PiPifier 1.4's script (which runs on every DOM change). Test hooks `window.__floatr.scanNow` / `applySettings` exist only when no Safari extension is present.
 - `build.sh` kills the old `Floatr Extension.appex` process, because Safari otherwise keeps running the old extension.
 - Updates: `App/Updater.swift` (self-contained, also used as the template for other apps) reads `UpdateRepository` from Info.plist, downloads `Floatr.zip` from the latest release, and installs it only if the bundle id matches and the signature is valid with the same team. Test without UI: `open -a Floatr --args -FloatrRunUpdate YES`.
 
 ## Status
 
-- Current release: 1.0.3 (self-update from GitHub). Everything is committed and pushed.
+- Current release: 1.0.4 (shortcut reaches a background tab playing audio; floating button redesign; settings apply to open tabs).
 - No open tasks. Bugs are reported by the user as they find them.

@@ -11,6 +11,7 @@ final class AppModel: ObservableObject {
         didSet {
             guard settings != oldValue else { return }
             SettingsStore.save(settings)
+            if settings.scriptPayloadChanged(from: oldValue) { schedulePush() }
             if settings.shortcuts != oldValue.shortcuts
                 || settings.hotkeysWhenSafariInBackground != oldValue.hotkeysWhenSafariInBackground {
                 applyHotkeys()
@@ -30,6 +31,15 @@ final class AppModel: ObservableObject {
     @Published var selectedPane: SettingsPane? = .shortcuts
 
     private var lastGestureFallback = Date.distantPast
+    private var pushWork: DispatchWorkItem?
+
+    /// Sends new page settings to open tabs, at most once per burst of changes (typing a site, a picker).
+    private func schedulePush() {
+        pushWork?.cancel()
+        let work = DispatchWorkItem { SafariBridge.pushSettings() }
+        pushWork = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: work)
+    }
 
     private init() {
         settings = SettingsStore.load()
